@@ -7,12 +7,16 @@
   stmaryrd,amsrefs,titling,tikz,
   mathrsfs,etoolbox,refcount,multicol,MnSymbol,
   yfonts,framed,relsize,colortbl,pgf-umlsd,varwidth,
-  environ,xparse}
+  environ,xparse,forest}
 \lstset{
   language=Lisp,
   basicstyle=\ttfamily,
 }
 \usepackage[many]{tcolorbox}
+
+\forestset{qtree/.style={for tree={parent anchor=south, 
+           child anchor=north,align=center,inner sep=0pt}}}
+\usepackage{flexisym}
 
 
 \usepackage[framemethod=tikz]{mdframed}
