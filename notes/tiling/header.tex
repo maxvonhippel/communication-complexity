@@ -50,7 +50,7 @@
 \usepackage{titlesec}
 \usetikzlibrary{
     arrows,shapes,positioning,decorations.markings,
-    decorations.pathreplacing,hobby,automata}
+    decorations.pathreplacing,hobby,automata,tikzmark}
 \tikzset{
     looped/.style={
         decoration={markings,mark=at position 0.999 with {\arrow[scale=2]{>}}},
@@ -97,7 +97,7 @@
 innerrightmargin=6pt,innertopmargin=6pt,innerbottommargin=6pt]{mybox}
 
 \usepackage[pdf]{graphviz}
-\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{shapes,arrows,calc}
 \usepackage[utf8]{inputenc}
 
 \setlength{\droptitle}{-7em}

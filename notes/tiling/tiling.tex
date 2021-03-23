@@ -81,21 +81,71 @@ First, let $M(f)$ be the \emph{matrix of }$f$,
 	namely,
 		the $2^n \times 2^n$ matrix whose $(x, y)$th entry
 		is the value $f(x, y)$.
+
 \begin{table}[h]
 \centering
 \begin{tabular}{|l|lllll|}
 \hline
     & 0 & 1 & 2 & 3 & 4 \\\hline
-0   & \cellcolor{red!25}0 & \cellcolor{green!25}1 & \cellcolor{green!25}1 & \cellcolor{green!25}1 & \cellcolor{green!25}1 \\
-1   & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{green!25}1 & \cellcolor{green!25}1 & \cellcolor{green!25}1 \\
-2   & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{green!25}1 & \cellcolor{green!25}1 \\
-3   & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{green!25}1 \\
-4   & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{red!25}0\\\hline
+\texttt{000} = 0   & \cellcolor{red!25}0 & \cellcolor{green!25}1 & \cellcolor{green!25}1 & \cellcolor{green!25}1 & \cellcolor{green!25}1 \\
+\texttt{001} = 1   & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{green!25}1 & \cellcolor{green!25}1 & \cellcolor{green!25}1 \\
+\texttt{010} = 2   & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{green!25}1 & \cellcolor{green!25}1 \\
+\texttt{011} = 3   & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{green!25}1 \\
+\texttt{100} = 4   & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{red!25}0\\\hline
 \end{tabular}
-\caption{The matrix $f(<)$ for inputs $x, y \in \{ 0, 1, 2, 3 \}$.  Values of $x$ are given in the rows, while values of $y$ are given in the columns.  False (i.e. 0) values are marked red for clarity.}
+\caption{The matrix $M(<)$ for inputs $x, y \in \{ 0, 1, 2, 3 \}$.  Values of $x$ are given in the rows, while values of $y$ are given in the columns.  False (i.e. 0) values are marked red for clarity.}
 \end{table}
 
-\TODO ...
+A \emph{combinatorial rectangle} in $M(f)$ is any submatrix of $M$.
+We say a rectangle $A \times B$ in $M(f)$ is \emph{monochromatic}
+if for all $x, x'$ in $A$ and $y, y'$ in $B$, $M_{x,y} = M_{x',y'}$.
+
+\begin{figure}[h]
+\centering 
+	\begin{minipage}{0.25\textwidth}
+		\begin{tabular}{|l|lllll|}
+		\hline
+		    & 0 & 1 & 2 & 3 & 4 \\\hline
+		0   & 0 & 1 & 1 & 1 & 1 \\
+		1   & 0 & 0 & 1 & 1 & 1 \\
+		2   & \cellcolor{purple!75}{\textcolor{white}{0}} & \cellcolor{purple!75}{\textcolor{white}{0}} & \cellcolor{purple!75}{\textcolor{white}{0}} & 1 & 1 \\
+		3   & \cellcolor{purple!75}{\textcolor{white}{0}} & \cellcolor{purple!75}{\textcolor{white}{0}} & \cellcolor{purple!75}{\textcolor{white}{0}} & 0 & 1 \\
+		4   & \cellcolor{purple!75}{\textcolor{white}{0}} & \cellcolor{purple!75}{\textcolor{white}{0}} & \cellcolor{purple!75}{\textcolor{white}{0}} & 0 & 0\\\hline
+		\end{tabular}
+	\end{minipage}
+	\begin{minipage}{0.25\textwidth}
+		\begin{tabular}{|l|lllll|}
+		\hline
+		    & 0 & 1 & 2 & 3 & 4 \\\hline
+		0   & \cellcolor{orange!75}0 & 1 & \cellcolor{orange!75}1 & 1 & \cellcolor{orange!75}1 \\
+		1   & \cellcolor{orange!75}0 & 0 & \cellcolor{orange!75}1 & 1 & \cellcolor{orange!75}1 \\
+		2   & 0 & 0 & 0 & 1 & 1 \\
+		3   & \cellcolor{orange!75}0 & 0 & \cellcolor{orange!75}0 & 0 & \cellcolor{orange!75}1 \\
+		4   & 0 & 0 & 0 & 0 & 0\\\hline
+		\end{tabular}   
+	\end{minipage}
+	\begin{minipage}{0.25\textwidth}
+		\begin{tabular}{|l|lllll|}
+		\hline
+		    & 0 & 1 & 2 & 3 & 4 \\\hline
+		0   & 0 & 1 & \cellcolor{black!75}{\textcolor{white}{1}} & \cellcolor{black!75}{\textcolor{white}{1}} & 1 \\
+		1   & 0 & 0 & \cellcolor{black!75}{\textcolor{white}{1}} & \cellcolor{black!75}{\textcolor{white}{1}} & 1 \\
+		2   & 0 & 0 & \cellcolor{black!75}{\textcolor{white}{0}} & \cellcolor{black!75}{\textcolor{white}{1}} & 1 \\
+		3   & 0 & 0 & 0 & 0 & 1 \\
+		4   & 0 & 0 & 0 & 0 & 0\\\hline
+		\end{tabular}   
+	\end{minipage}
+	\caption{Some example rectangles of $M(<)$.  The first rectange, in {\colorbox{purple!75}{\textcolor{white}{purple}}}, is monochromatically colored 0.  The second rectangle, in {\colorbox{orange!75}{orange}}, is illustrates the flexibility of our rectangle definition, namely, that the rectangle does not actually need to be connected in the original matrix (although, the entries cannot be permuted).  Neither the {\colorbox{purple!75}{\textcolor{white}{second}}} nor {\colorbox{black!75}{\textcolor{white}{third}}} rectangle is monochromatic.}
+\end{figure}
+
+Without loss of generality, 
+	suppose the protocol $\Pi$ begins with Alice
+	sending a bit $b$.
+Then \emph{certainly} $M(f)$ partitions into two rectangles,
+	where the first considers all the scenarios where the bit Alice sent was 0,
+	and the second considers all the scenarios where the bit Alice sent was 1.
+By induction, every bit sent in the protocol further \emph{naturally partitions} $M(f)$,
+and we end up with a binary tree of partitions of $M(f)$ induced by $\Pi$.
 
 % \bibliographystyle{IEEEtran}
 % \bibliography{htm}
