@@ -1,0 +1,102 @@
+\title{The Tiling Method}
+\author{Max von Hippel}
+\date{\today}
+
+\documentclass[12pt]{article}
+
+\include{header}
+
+\begin{document}
+\maketitle
+
+Consider a two-party communication problem,
+	in which the participants
+
+\begin{figure}[h]
+\centering
+\begin{subfigure}{.3\textwidth}
+  \centering
+  \includegraphics[width=.2\linewidth]{alice.png}
+  \caption{Alice}
+  \label{fig:alice}
+\end{subfigure}%
+and
+\begin{subfigure}{.3\textwidth}
+  \centering
+  \includegraphics[width=.2\linewidth]{bob.png}
+  \caption{Bob}
+  \label{fig:bob}
+\end{subfigure}
+\label{fig:participants}
+\end{figure}
+
+\emph{participate} to compute a function:
+\[f : \underbrace{\mathbb{B}^n}_{\begin{aligned}\text{Alice's}\\\text{input}\end{aligned}} \times 
+      \underbrace{\mathbb{B}^n}_{\begin{aligned}\text{Bob's}\\\text{input}\end{aligned}} \to 
+      \underbrace{\mathbb{B}}_{\begin{aligned}\text{global}\\\text{output}\end{aligned}}\]
+The players can come up with a \emph{protocol} 
+\(\Pi = (p_1, ..., p_t)\),
+namely, 
+	for some natural $t \in \mathbb{N}$,
+	a sequence of $t$-many functions
+\(p_i : \mathbb{B}^* \to \mathbb{B}^*\)
+such that the communication between the players looks like this:\\
+\noindent\hfill\par
+\noindent\makebox[\textwidth][c]{%
+    \begin{minipage}{0.8\textwidth}
+\noindent\fbox{\parbox{\textwidth}{
+Alice is given input $x$.
+\begin{leftbubbles}
+Hi Bob. I'm not divulging $x$, but, $p_1(x) = \texttt{P1}$.
+\end{leftbubbles}
+\rightline{Bob is given input $y$.}
+\begin{rightbubbles}
+Thanks Alice.  I'm not divulging $y$, but, $p_2(y, \texttt{P1}) = \texttt{P2}$.
+\end{rightbubbles}
+\begin{leftbubbles}
+Thanks Bob.  Don't tell anyone, but: $p_3(x, \texttt{P1}, \texttt{P2}) = \texttt{P3}$.
+\end{leftbubbles}
+\begin{rightbubbles}
+Is that so? Well, $p_4(y, \texttt{P1}, \texttt{P2}, \texttt{P3}) = \texttt{P4}$.
+\end{rightbubbles}
+\begin{leftbubbles}
+Wicked.  In that case, $p_5(x, \texttt{P1}, \texttt{P2}, \texttt{P3}, \texttt{P4}) = \texttt{P5}$.
+\end{leftbubbles}
+\[... \emph{yada yada yada} ...\]
+\begin{leftbubbles}
+In that case, the last thing you need to know is that $p_t(x, \texttt{P1}, \texttt{P2}, \texttt{P3}, \texttt{P4}, ..., \texttt{P(t-1)})=\texttt{Pt}$.
+\end{leftbubbles}}}
+\end{minipage}}
+\clearpage
+Suppose that there is a protocol $\Pi$ for $f$ consisting of $t$ messages,
+but, there does not exist any protocol $\Pi'$ for $f$ consisting of fewer than $t$ messages.
+Then we say $t$ is the \emph{communication complexity} of $f$, and we write $C(f) = t$.
+
+Given some such function $f$, it would be nice if we could automatically compute
+a reasonable lower bound on its communication complexity.
+One way to do this is with the \emph{tiling method}.
+We will give the method immediately, and in tandem, we will illustrate the method using
+the function $f(x, y) = x < y$ where $x, y$ are integers in $\{ 0, 1, 2, 3 \}$, encoded in $\mathbb{B}$oolean.
+First, let $M(f)$ be the \emph{matrix of }$f$,
+	namely,
+		the $2^n \times 2^n$ matrix whose $(x, y)$th entry
+		is the value $f(x, y)$.
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|lllll|}
+\hline
+    & 0 & 1 & 2 & 3 & 4 \\\hline
+0   & \cellcolor{blue!25}0 & 1 & 1 & 1 & 1 \\
+1   & \cellcolor{blue!25}0 & \cellcolor{blue!25}0 & 1 & 1 & 1 \\
+2   & \cellcolor{blue!25}0 & \cellcolor{blue!25}0 & \cellcolor{blue!25}0 & 1 & 1 \\
+3   & \cellcolor{blue!25}0 & \cellcolor{blue!25}0 & \cellcolor{blue!25}0 & \cellcolor{blue!25}0 & 1 \\
+4   & \cellcolor{blue!25}0 & \cellcolor{blue!25}0 & \cellcolor{blue!25}0 & \cellcolor{blue!25}0 & \cellcolor{blue!25}0\\\hline
+\end{tabular}
+\caption{The matrix $f(<)$ for inputs $x, y \in \{ 0, 1, 2, 3 \}$.  Values of $x$ are given in the rows, while values of $y$ are given in the columns.  False (i.e. 0) values are marked blue for clarity.}
+\end{table}
+
+\TODO ...
+
+% \bibliographystyle{IEEEtran}
+% \bibliography{htm}
+\end{document}
