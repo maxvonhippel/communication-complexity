@@ -176,7 +176,47 @@ Notice that \textsf{L} and \textsf{R} are strictly smaller than $M(f)$;
 \end{forest}
 \end{figure}
 Consider the \textsf{L} branch.
-
+The case of the original protocol where Alice starts by sending a 0
+	is precisely the smaller protocol in which Bob makes the first move,
+	rooted in \textsf{L}.
+In other words, we have an inductive structure,
+	where every step in a protocol $\Pi$ yields
+	a new, smaller protocol.
+Every step down the tree further disjointly partitions
+the space of possible values $f(x, y)$.
+Since there were finitely many such values $f(x, y) \in M(f)$ in the first place,
+	clearly every such walk must eventually end in a \emph{leaf} of the tree.
+In fact, each leaf is monochromatic.
+\begin{proof}
+For a contradiction assume some leaf \textsf{J} is not monochromatic.
+That is, \textsf{J} has entries $i$ and $j$ such that $i \neq j$.
+Since $i \neq j$ we know that they are in different cells.
+WLOG suppose $i$ and $j$ occur in different rows.
+Then the row of $i$ or $j$ refers to a bit of information about $x$ which Alice did not
+yet share with Bob.  (We know it's of $x$ as it's a row; we know she did not share it yet as otherwise the subsequent partitioning would seperate $i$ and $j$.)
+But this implies that we are not at a leaf yet, since Alice could send another bit of information
+and depending on that bit, partition the set of possible values $f(x, y)$ disjointly,
+into a set containing $i$ and another containing $j$.
+So we have reached a contradiction since we assumed \textsf{J} was a leaf, and we are done.
+\end{proof}
+We have just considered one protocol, $\Pi$, namely the protocol where Alice and Bob take turns
+reading aloud the bits of their input from least-significant to most-significant.
+And we've seen that this induces a natural upper bound on the communication complexity of $f$,
+namely the maximum depth of the tree we computed for $\Pi$ where each branch ends as soon as it
+becomes monochromatic.
+But maybe there is some \emph{better} protocol $\Pi'$, which achieves a better communication complexity,
+i.e., that yields a less-obvious, tighter upper bound.
+Given $f$, let $\chi(f)$ denote the minimum number of rectangles in any monochromatic tiling of $M(f)$.
+Then we claim the following.
+\begin{theorem}[\texttt{AUY83}]
+\[\emph{log}_2 \, \chi(f) \leq
+C(f) \leq
+16\big(\emph{log}_2 \, \chi(f) \big)^2\]
+\end{theorem}
+\begin{itemize}
+\item \TODO - prove it and explain and illustrate the proof
+\item \TODO - give and prove Lemma 13.9 relating to fooling set
+\end{itemize}
 
 
 % \begin{figure}
