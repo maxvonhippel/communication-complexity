@@ -9,6 +9,8 @@
 \begin{document}
 \maketitle
 
+\section{Problem Statement}
+
 Consider a two-party communication problem,
 	in which the participants
 
@@ -43,7 +45,7 @@ namely,
 such that the communication between the players looks like this:\\
 \noindent\hfill\par
 \noindent\makebox[\textwidth][c]{%
-    \begin{minipage}{0.8\textwidth}
+    \begin{minipage}{0.65\textwidth}
 \noindent\fbox{\parbox{\textwidth}{
 Alice is given input $x$.
 \begin{leftbubbles}
@@ -64,41 +66,94 @@ Wicked.  In that case, $p_5(x, \texttt{P1}, \texttt{P2}, \texttt{P3}, \texttt{P4
 \end{leftbubbles}
 \[... \emph{yada yada yada} ...\]
 \begin{leftbubbles}
-In that case, the last thing you need to know is that $p_t(x, \texttt{P1}, \texttt{P2}, \texttt{P3}, \texttt{P4}, ..., \texttt{P(t-1)})=\texttt{Pt}$.
+$p_t(x, \texttt{P1}, \texttt{P2}, \texttt{P3}, \texttt{P4}, ..., \texttt{P(t-1)})=\texttt{Pt}$, and TTFN!
 \end{leftbubbles}}}
 \end{minipage}}
+Critically, the functions $p_i$ can be \emph{anything} so long as they are well-defined.
+For example, $p_2$ could be the function that asks if $\langle y, \texttt{P2} \rangle$ is a word in $A_{TM}$.
 \clearpage
-Suppose that there is a protocol $\Pi$ for $f$ consisting of $t$ messages,
-but, there does not exist any protocol $\Pi'$ for $f$ consisting of fewer than $t$ messages.
-Then we say $t$ is the \emph{communication complexity} of $f$, and we write $C(f) = t$.
+\begin{definition}[Communication Complexity]
+Suppose $\Pi$ is a protocol for $f$ in which at most $t$
+bits are communicated between Alice and Bob.
+Then the \emph{communication complexity} of $\Pi$,
+	denoted $C(\Pi)$, is $t$.
+The communication complexity of $f$, denoted $C(f)$,
+	is the minimum communication complexity
+	achieved by any protocol for $f$.
+\end{definition}
 
 Given some such function $f$, it would be nice if we could automatically compute
 a reasonable lower bound on its communication complexity.
+
+\section{The Tiling Method}
+
 One way to do this is with the \emph{tiling method}.
 We will give the method immediately, and in tandem, we will illustrate the method using
 the function $f(x, y) = x < y$ where $x, y$ are integers in $\{ 0, 1, 2, 3 \}$, encoded in $\mathbb{B}$oolean.
-First, let $M(f)$ be the \emph{matrix of }$f$,
-	namely,
-		the $2^n \times 2^n$ matrix whose $(x, y)$th entry
+
+\begin{definition}[$M(f)$]
+The \emph{matrix of }$f$,
+	denoted $M(f)$,
+		is the $2^n \times 2^n$ matrix whose $(x, y)$th entry
 		is the value $f(x, y)$.
+An example is given in Table~\ref{fig:ex:Mf}.
+\end{definition}
 
 \begin{table}[h]
 \centering
 \begin{tabular}{|l|lllll|}
 \hline
-    & \texttt{000} & \texttt{001} & \texttt{010} & \texttt{011} & \texttt{100} \\\hline
-\texttt{000} = 0   & \cellcolor{red!25}0 & \cellcolor{green!25}1 & \cellcolor{green!25}1 & \cellcolor{green!25}1 & \cellcolor{green!25}1 \\
-\texttt{001} = 1   & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{green!25}1 & \cellcolor{green!25}1 & \cellcolor{green!25}1 \\
-\texttt{010} = 2   & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{green!25}1 & \cellcolor{green!25}1 \\
-\texttt{011} = 3   & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{green!25}1 \\
-\texttt{100} = 4   & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{red!25}0 & \cellcolor{red!25}0\\\hline
+    & \begin{tabular}{c}\texttt{000}\\
+                     \rotatebox{90}{=}\\
+                     0\end{tabular} 
+    & \begin{tabular}{c}\texttt{001}\\
+                     \rotatebox{90}{=}\\
+                     1\end{tabular} 
+    & \begin{tabular}{c}\texttt{010}\\
+                     \rotatebox{90}{=}\\
+                     2\end{tabular} 
+    & \begin{tabular}{c}\texttt{011}\\
+                     \rotatebox{90}{=}\\
+                     3\end{tabular} 
+    & \begin{tabular}{c}\texttt{100}\\
+                     \rotatebox{90}{=}\\
+                     4\end{tabular} \\\hline
+\texttt{000} = 0   & \cellcolor{red!25}0 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 \\
+\texttt{001} = 1   & \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 \\
+\texttt{010} = 2   & \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 \\
+\texttt{011} = 3   & \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{green!25}1 \\
+\texttt{100} = 4   & \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0\\\hline
 \end{tabular}
 \caption{The matrix $M(<)$ for inputs $x, y \in \{ 0, 1, 2, 3 \}$.  Values of $x$ are given in the rows, while values of $y$ are given in the columns.  False (i.e. 0) values are marked red for clarity.}
+\label{fig:ex:Mf}
 \end{table}
 
+\begin{definition}[Combinatorial Rectangle]
 A \emph{combinatorial rectangle} in $M(f)$ is any submatrix of $M$.
 We say a rectangle $A \times B$ in $M(f)$ is \emph{monochromatic}
 if for all $x, x'$ in $A$ and $y, y'$ in $B$, $M_{x,y} = M_{x',y'}$.
+Examples are given in Figure~\ref{fig:ex:recs}.
+\end{definition}
 
 \begin{figure}[h]
 \centering 
@@ -112,6 +167,7 @@ if for all $x, x'$ in $A$ and $y, y'$ in $B$, $M_{x,y} = M_{x',y'}$.
 		3   & \cellcolor{purple!75}{\textcolor{white}{0}} & \cellcolor{purple!75}{\textcolor{white}{0}} & \cellcolor{purple!75}{\textcolor{white}{0}} & 0 & 1 \\
 		4   & \cellcolor{purple!75}{\textcolor{white}{0}} & \cellcolor{purple!75}{\textcolor{white}{0}} & \cellcolor{purple!75}{\textcolor{white}{0}} & 0 & 0\\\hline
 		\end{tabular}
+		\subcaption{Colored 0.}
 	\end{minipage}
 	\begin{minipage}{0.25\textwidth}
 		\begin{tabular}{|l|lllll|}
@@ -122,7 +178,8 @@ if for all $x, x'$ in $A$ and $y, y'$ in $B$, $M_{x,y} = M_{x',y'}$.
 		2   & 0 & 0 & 0 & 1 & 1 \\
 		3   & \cellcolor{orange!75}0 & 0 & \cellcolor{orange!75}0 & 0 & \cellcolor{orange!75}1 \\
 		4   & 0 & 0 & 0 & 0 & 0\\\hline
-		\end{tabular}   
+		\end{tabular} 
+		\subcaption{Colored 0 \& 1.}  
 	\end{minipage}
 	\begin{minipage}{0.25\textwidth}
 		\begin{tabular}{|l|lllll|}
@@ -134,89 +191,109 @@ if for all $x, x'$ in $A$ and $y, y'$ in $B$, $M_{x,y} = M_{x',y'}$.
 		3   & 0 & 0 & 0 & 0 & 1 \\
 		4   & 0 & 0 & 0 & 0 & 0\\\hline
 		\end{tabular}   
+		\subcaption{Colored 0 \& 1.}
 	\end{minipage}
-	\caption{Some example rectangles of $M(<)$.  The first rectange, in {\colorbox{purple!75}{\textcolor{white}{purple}}}, is monochromatically colored 0.  The second rectangle, in {\colorbox{orange!75}{orange}}, is illustrates the flexibility of our rectangle definition, namely, that the rectangle does not actually need to be connected in the original matrix (although, the entries cannot be permuted).  Neither the {\colorbox{purple!75}{\textcolor{white}{second}}} nor {\colorbox{black!75}{\textcolor{white}{third}}} rectangle is monochromatic.}
+	\caption{Some example rectangles of $M(<)$.  The first rectange, in {\colorbox{purple!75}{\textcolor{white}{purple}}}, is monochromatically colored 0.  The second rectangle, in {\colorbox{orange!75}{orange}}, illustrates the flexibility of our rectangle definition, namely, that the rectangle does not actually need to be connected in the original matrix.  Neither the {\colorbox{purple!75}{\textcolor{white}{second}}} nor {\colorbox{black!75}{\textcolor{white}{third}}} rectangle is monochromatic.}
+	\label{fig:ex:recs}
 \end{figure}
 
-Without loss of generality, 
-	suppose the protocol $\Pi$ begins with Alice
-	sending a bit $b$.
-Then \emph{certainly} $M(f)$ partitions into two rectangles \textsf{L} and \textsf{R},
-	where \textsf{L} considers all the scenarios where the bit Alice sent was 0,
-	and \textsf{R} considers all the scenarios where the bit Alice sent was 1.
-Notice that \textsf{L} and \textsf{R} are strictly smaller than $M(f)$;
-	in fact, the number of cells in \textsf{L} plus the number of cells in \textsf{R}
-	equals the number of cells in $M(f)$.
-	This is what we mean by a \emph{partition}.
+And now for the punchline!
 
-\clearpage
-
-\begin{figure}[h]
-\centering
-\begin{forest}, baseline, qtree
-[$M(f)$
-	[Partition \textsf{L} of $M(f)$\\where Alice sent 0
-		[Partition \textsf{LL} of \textsf{L}\\
-		where Bob replied 0
-			[...]
-			[...]]
-		[Partition \textsf{LR} of \textsf{L}\\
-		where Bob replied 1
-			[...]
-			[...]]]
-	[Partition \textsf{R} of $M(f)$\\where Alice sent 1
-		[Partition \textsf{RL} of \textsf{R}\\
-		 where Bob replied 0
-		 	[...]
-		 	[...]]
-		[Partition \textsf{RR} of \textsf{R}\\
-		 where Bob replied 1
-		 	[...]
-		 	[...]]]]
-\end{forest}
-\end{figure}
-Consider the \textsf{L} branch.
-The case of the original protocol where Alice starts by sending a 0
-	is precisely the smaller protocol in which Bob makes the first move,
-	rooted in \textsf{L}.
-In other words, we have an inductive structure,
-	where every step in a protocol $\Pi$ yields
-	a new, smaller protocol.
-Every step down the tree further disjointly partitions
-the space of possible values $f(x, y)$.
-Since there were finitely many such values $f(x, y) \in M(f)$ in the first place,
-	clearly every such walk must eventually end in a \emph{leaf} of the tree.
-In fact, each leaf is monochromatic.
-\begin{proof}
-For a contradiction assume some leaf \textsf{J} is not monochromatic.
-That is, \textsf{J} has entries $i$ and $j$ such that $i \neq j$.
-Since $i \neq j$ we know that they are in different cells.
-WLOG suppose $i$ and $j$ occur in different rows.
-Then the row of $i$ or $j$ refers to a bit of information about $x$ which Alice did not
-yet share with Bob.  (We know it's of $x$ as it's a row; we know she did not share it yet as otherwise the subsequent partitioning would seperate $i$ and $j$.)
-But this implies that we are not at a leaf yet, since Alice could send another bit of information
-and depending on that bit, partition the set of possible values $f(x, y)$ disjointly,
-into a set containing $i$ and another containing $j$.
-So we have reached a contradiction since we assumed \textsf{J} was a leaf, and we are done.
-\end{proof}
-We have just considered one protocol, $\Pi$, namely the protocol where Alice and Bob take turns
-reading aloud the bits of their input from least-significant to most-significant.
-And we've seen that this induces a natural upper bound on the communication complexity of $f$,
-namely the maximum depth of the tree we computed for $\Pi$ where each branch ends as soon as it
-becomes monochromatic.
-But maybe there is some \emph{better} protocol $\Pi'$, which achieves a better communication complexity,
-i.e., that yields a less-obvious, tighter upper bound.
-Given $f$, let $\chi(f)$ denote the minimum number of rectangles in any monochromatic tiling of $M(f)$.
-Then we claim the following.
-\begin{theorem}[\texttt{AUY83}]
-\[\emph{log}_2 \, \chi(f) \leq
-C(f) \leq
-16\big(\emph{log}_2 \, \chi(f) \big)^2\]
+\begin{theorem}[The Tiling Method]
+Denote by $\chi(f)$ the minimum number of rectangles in any monochromatic tiling
+of $M(f)$.  Then \(\emph{log}_2 \chi(f) \leq C(f) \leq 16 \big( \emph{log}_2 \chi(f) \big)^2\).
 \end{theorem}
-\begin{itemize}
-\item \TODO - prove it and explain and illustrate the proof
-\item \TODO - give and prove Lemma 13.9 relating to fooling set
-\end{itemize}
+
+% For the example function $<$,
+% 	consider the na{\"i}ve protocol \textsc{LSB} where Alice and Bob take turns
+% 	sending one another bits from least to most-significant,
+% 	until they've agreed on the answer.
+% 	The protocol begins with Alice sending a bit $\texttt{P1} = b$, namely the LSB of $x$.
+
+% Clearly $M(f)$ partitions into two rectangles \textsf{L} and \textsf{R},
+% 	where \textsf{L} considers all the scenarios where the bit Alice sent was 0,
+% 	and \textsf{R} considers all the scenarios where the bit Alice sent was 1.
+% Notice that \textsf{L} and \textsf{R} are strictly smaller than $M(f)$;
+% 	in fact, the number of cells in \textsf{L} plus the number of cells in \textsf{R}
+% 	equals the number of cells in $M(f)$.
+% 	This is what we mean by a \emph{partition}.
+
+% \begin{definition}[Partition]
+% A \emph{partition} of a set $X$ is some list of disjoint subsets $X_0, X_1, ..., X_k$ such that
+% $X_0 \cup X_1 \cup ... \cup X_k = X$.
+% A \emph{monochromatic partition} of $M(f)$ is a partition of $M(f)$ into monochromatic rectangles.
+% The idea is illustrated in Figure~\ref{fig:ill:part}.
+% \end{definition}
+
+% \begin{figure}[h]
+% \centering
+% \begin{forest}, baseline, qtree
+% [$M(f)$
+% 	[Partition \textsf{L} of $M(f)$\\where Alice sent 0
+% 		[Partition \textsf{LL} of \textsf{L}\\
+% 		where Bob replied 0
+% 			[...]
+% 			[...]]
+% 		[Partition \textsf{LR} of \textsf{L}\\
+% 		where Bob replied 1
+% 			[...]
+% 			[...]]]
+% 	[Partition \textsf{R} of $M(f)$\\where Alice sent 1
+% 		[Partition \textsf{RL} of \textsf{R}\\
+% 		 where Bob replied 0
+% 		 	[...]
+% 		 	[...]]
+% 		[Partition \textsf{RR} of \textsf{R}\\
+% 		 where Bob replied 1
+% 		 	[...]
+% 		 	[...]]]]
+% \end{forest}
+% \caption{Tree structure for the na{\"i}ve protocol \textsc{LSB} for the function $<$.}
+% \label{fig:ill:part}
+% \end{figure}
+
+% Consider the \textsf{L} branch.
+% The case of the original protocol where Alice starts by sending a 0
+% 	is precisely the smaller protocol in which Bob makes the first move,
+% 	rooted in \textsf{L}.
+% In other words, we have an inductive structure,
+% 	where every step in a protocol $\Pi$ yields
+% 	a new, smaller protocol.
+% Every step down the tree further disjointly partitions
+% the space of possible values $f(x, y)$.
+% Since there were finitely many such values $f(x, y) \in M(f)$ in the first place,
+% 	clearly every such walk must eventually end in a \emph{leaf} of the tree.
+% In fact, each leaf is monochromatic.
+% \begin{proof}
+% For a contradiction assume some leaf \textsf{J} is not monochromatic.
+% That is, \textsf{J} has entries $i$ and $j$ such that $i \neq j$.
+% Since $i \neq j$ we know that they are in different cells.
+% WLOG suppose $i$ and $j$ occur in different rows.
+% Then the row of $i$ or $j$ refers to a bit of information about $x$ which Alice did not
+% yet share with Bob.  (We know it's of $x$ as it's a row; we know she did not share it yet as otherwise the subsequent partitioning would seperate $i$ and $j$.)
+% But this implies that we are not at a leaf yet, since Alice could send another bit of information
+% and depending on that bit, partition the set of possible values $f(x, y)$ disjointly,
+% into a set containing $i$ and another containing $j$.
+% So we have reached a contradiction since we assumed \textsf{J} was a leaf, and we are done.
+% \end{proof}
+% We have just considered one protocol, $\Pi$, namely the protocol where Alice and Bob take turns
+% reading aloud the bits of their input from least-significant to most-significant.
+% And we've seen that this induces a natural upper bound on the communication complexity of $f$,
+% namely the maximum depth of the tree we computed for $\Pi$ where each branch ends as soon as it
+% becomes monochromatic.
+% But maybe there is some \emph{better} protocol $\Pi'$, which achieves a better communication complexity,
+% i.e., that yields a less-obvious, tighter upper bound.
+% Given $f$, let $\chi(f)$ denote the minimum number of rectangles in any monochromatic tiling of $M(f)$.
+% Then we claim the following.
+% \begin{theorem}[\texttt{AUY83}]
+% \[\emph{log}_2 \, \chi(f) \leq
+% C(f) \leq
+% 16\big(\emph{log}_2 \, \chi(f) \big)^2\]
+% \end{theorem}
+% \begin{itemize}
+% \item \TODO - prove it and explain and illustrate the proof
+% \item \TODO - give and prove Lemma 13.9 relating to fooling set
+% \end{itemize}
 
 
 % \begin{figure}
