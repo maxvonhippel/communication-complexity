@@ -96,251 +96,170 @@ The \emph{matrix of }$f$,
 	denoted $M(f)$,
 		is the $2^n \times 2^n$ matrix whose $(x, y)$th entry
 		is the value $f(x, y)$.
-An example is given in Table~\ref{fig:ex:Mf}.
 \end{definition}
-
-\begin{table}[h]
-\centering
-\begin{tabular}{|l|lllll|}
-\hline
-    & \begin{tabular}{c}\texttt{000}\\
-                     \rotatebox{90}{=}\\
-                     0\end{tabular} 
-    & \begin{tabular}{c}\texttt{001}\\
-                     \rotatebox{90}{=}\\
-                     1\end{tabular} 
-    & \begin{tabular}{c}\texttt{010}\\
-                     \rotatebox{90}{=}\\
-                     2\end{tabular} 
-    & \begin{tabular}{c}\texttt{011}\\
-                     \rotatebox{90}{=}\\
-                     3\end{tabular} 
-    & \begin{tabular}{c}\texttt{100}\\
-                     \rotatebox{90}{=}\\
-                     4\end{tabular} \\\hline
-\texttt{000} = 0   & \cellcolor{red!25}0 & 
-                     \cellcolor{green!25}1 & 
-                     \cellcolor{green!25}1 & 
-                     \cellcolor{green!25}1 & 
-                     \cellcolor{green!25}1 \\
-\texttt{001} = 1   & \cellcolor{red!25}0 & 
-                     \cellcolor{red!25}0 & 
-                     \cellcolor{green!25}1 & 
-                     \cellcolor{green!25}1 & 
-                     \cellcolor{green!25}1 \\
-\texttt{010} = 2   & \cellcolor{red!25}0 & 
-                     \cellcolor{red!25}0 & 
-                     \cellcolor{red!25}0 & 
-                     \cellcolor{green!25}1 & 
-                     \cellcolor{green!25}1 \\
-\texttt{011} = 3   & \cellcolor{red!25}0 & 
-                     \cellcolor{red!25}0 & 
-                     \cellcolor{red!25}0 & 
-                     \cellcolor{red!25}0 & 
-                     \cellcolor{green!25}1 \\
-\texttt{100} = 4   & \cellcolor{red!25}0 & 
-                     \cellcolor{red!25}0 & 
-                     \cellcolor{red!25}0 & 
-                     \cellcolor{red!25}0 & 
-                     \cellcolor{red!25}0\\\hline
-\end{tabular}
-\caption{The matrix $M(<)$ for inputs $x, y \in \{ 0, 1, 2, 3 \}$.  Values of $x$ are given in the rows, while values of $y$ are given in the columns.  False (i.e. 0) values are marked red for clarity.}
-\label{fig:ex:Mf}
-\end{table}
 
 \begin{definition}[Combinatorial Rectangle]
 A \emph{combinatorial rectangle} in $M(f)$ is any submatrix of $M$.
 We say a rectangle $A \times B$ in $M(f)$ is \emph{monochromatic}
 if for all $x, x'$ in $A$ and $y, y'$ in $B$, $M_{x,y} = M_{x',y'}$.
-Examples are given in Figure~\ref{fig:ex:recs}.
 \end{definition}
 
+Each message-send event in a protocol $\Pi$ splits $M(f)$ into two or more
+combinatorial rectangles of still-possible values for $f(x, y)$.
+An example is given below, using the \textsc{LeastSignficantBit} protocol for $<$,
+with Alice sending the first message.
+
 \begin{figure}[h]
-\centering 
-	\begin{minipage}{0.25\textwidth}
-		\begin{tabular}{|l|lllll|}
-		\hline
-		    & 0 & 1 & 2 & 3 & 4 \\\hline
-		0   & 0 & 1 & 1 & 1 & 1 \\
-		1   & 0 & 0 & 1 & 1 & 1 \\
-		2   & \cellcolor{purple!75}{\textcolor{white}{0}} & \cellcolor{purple!75}{\textcolor{white}{0}} & \cellcolor{purple!75}{\textcolor{white}{0}} & 1 & 1 \\
-		3   & \cellcolor{purple!75}{\textcolor{white}{0}} & \cellcolor{purple!75}{\textcolor{white}{0}} & \cellcolor{purple!75}{\textcolor{white}{0}} & 0 & 1 \\
-		4   & \cellcolor{purple!75}{\textcolor{white}{0}} & \cellcolor{purple!75}{\textcolor{white}{0}} & \cellcolor{purple!75}{\textcolor{white}{0}} & 0 & 0\\\hline
-		\end{tabular}
-		\subcaption{Colored 0.}
-	\end{minipage}
-	\begin{minipage}{0.25\textwidth}
-		\begin{tabular}{|l|lllll|}
-		\hline
-		    & 0 & 1 & 2 & 3 & 4 \\\hline
-		0   & \cellcolor{orange!75}0 & 1 & \cellcolor{orange!75}1 & 1 & \cellcolor{orange!75}1 \\
-		1   & \cellcolor{orange!75}0 & 0 & \cellcolor{orange!75}1 & 1 & \cellcolor{orange!75}1 \\
-		2   & 0 & 0 & 0 & 1 & 1 \\
-		3   & \cellcolor{orange!75}0 & 0 & \cellcolor{orange!75}0 & 0 & \cellcolor{orange!75}1 \\
-		4   & 0 & 0 & 0 & 0 & 0\\\hline
-		\end{tabular} 
-		\subcaption{Colored 0 \& 1.}  
-	\end{minipage}
-	\begin{minipage}{0.25\textwidth}
-		\begin{tabular}{|l|lllll|}
-		\hline
-		    & 0 & 1 & 2 & 3 & 4 \\\hline
-		0   & 0 & 1 & \cellcolor{black!75}{\textcolor{white}{1}} & \cellcolor{black!75}{\textcolor{white}{1}} & 1 \\
-		1   & 0 & 0 & \cellcolor{black!75}{\textcolor{white}{1}} & \cellcolor{black!75}{\textcolor{white}{1}} & 1 \\
-		2   & 0 & 0 & \cellcolor{black!75}{\textcolor{white}{0}} & \cellcolor{black!75}{\textcolor{white}{1}} & 1 \\
-		3   & 0 & 0 & 0 & 0 & 1 \\
-		4   & 0 & 0 & 0 & 0 & 0\\\hline
-		\end{tabular}   
-		\subcaption{Colored 0 \& 1.}
-	\end{minipage}
-	\caption{Some example rectangles of $M(<)$.  The first rectange, in {\colorbox{purple!75}{\textcolor{white}{purple}}}, is monochromatically colored 0.  The second rectangle, in {\colorbox{orange!75}{orange}}, illustrates the flexibility of our rectangle definition, namely, that the rectangle does not actually need to be connected in the original matrix.  Neither the {\colorbox{purple!75}{\textcolor{white}{second}}} nor {\colorbox{black!75}{\textcolor{white}{third}}} rectangle is monochromatic.}
-	\label{fig:ex:recs}
+\centering
+\begin{forest}
+[{\begin{tabular}{|l|lllll|}
+\hline
+    & \texttt{000}
+    & \texttt{001}
+    & \texttt{010}
+    & \texttt{011} 
+    & \texttt{100}\\\hline
+\texttt{000} & \cellcolor{red!25}0 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 \\
+\texttt{001} & \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 \\
+\texttt{010} & \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 \\
+\texttt{011} & \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{green!25}1 \\
+\texttt{100} & \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0\\\hline
+\end{tabular}},
+	[{\begin{tabular}{|l|lllll|}
+\hline
+    & \texttt{000}
+    & \texttt{001}
+    & \texttt{010} 
+    & \texttt{011}
+    & \texttt{100}\\\hline
+\texttt{000}  & \cellcolor{red!25}0 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 \\
+\texttt{010}  & \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 \\
+\texttt{100}  & \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0\\\hline
+\end{tabular}}, edge label={node[midway,left]{Alice: ``$x=\_\_\texttt{0}$''}}]
+	[{\begin{tabular}{|l|lllll|}
+\hline
+    & \texttt{000} 
+    & \texttt{001}
+    & \texttt{010}
+    & \texttt{011}
+    & \texttt{100}\\\hline
+\texttt{001}  & \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 \\
+\texttt{011}  & \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{green!25}1 \\\hline
+\end{tabular}}, edge label={node[midway,right]{Alice: ``$x=\_\_\texttt{1}$''}}]]
+\end{forest}
+\caption{The matrix $M(<)$ for inputs $x, y \in \{ 0, 1, 2, 3 \}$.  Values of $x$ are given in the rows, while values of $y$ are given in the columns.  False (i.e. 0) values are marked red for clarity.  We show how in the \textsc{LeastSignificantBit} protocol, $M(<)$ can be partitioned into two rectangles depending on the substance of the initial message sent by Alice.}
+\label{fig:ex:Mf}
 \end{figure}
 
-And now for the punchline!
+Since every protocol has finite length, 
+	a run of a protocol can only split $M(f)$ finitely many times.
+Hence each protocol $\Pi$ of $f$ induces a tree of combinatorial rectangles,
+	rooted at $M(f)$,
+	where the leaves represent the matrix of possible values of $f(x, y)$ once
+	the protocol has concluded.
+By definition, a protocol must conclude with both participants knowing the value $f(x, y)$.
+Therefore the leaves of each such tree must be monochromatic.
 
-\begin{theorem}[The Tiling Method]
-Denote by $\chi(f)$ the minimum number of rectangles in any monochromatic tiling
-of $M(f)$.  Then \(\emph{log}_2 \chi(f) \leq C(f) \leq 16 \big( \emph{log}_2 \chi(f) \big)^2\).
+Now we get to the punchline.
+\begin{definition}[Monochromatic Tiling]
+A \emph{monochromatic tiling} of $M(f)$ is a partition of $M(f)$ into disjoint
+monochromatic rectangles.
+\end{definition}
+
+\begin{center}
+\textbf{It's thinking time.}
+\end{center}
+
+\begin{description}
+\item \emph{Notice} that if $\Pi$ is a protocol for $f$, then the leaves of the tree induced by $\Pi$ and rooted at $M(f)$ clearly form a monochromatic tiling of $M(f)$.
+\item \emph{Recall} from eons ago, when you were an undergrad and had to know useful things, that the number of leaves in a binary tree can be used to upper-bound its depth.
+\item \emph{Realize} that the depth of the binary tree induced by $\Pi$ is exactly $C(\Pi)$.
+\item \emph{Observe} that although we made the math easy by assuming bit-sized messages, this idea clearly generalizes.
+\end{description}
+
+Let $\chi(f)$ denote the minimum number of rectangles in any monochromatic tiling of $M(f)$.
+
+\begin{theorem}[The Punchline]
+\[\text{log}_2 \chi(f) \leq
+	C(f) \leq
+		16 \big( \text{log}_2 \chi(f) \big)^2
+\]
 \end{theorem}
 
-% For the example function $<$,
-% 	consider the na{\"i}ve protocol \textsc{LSB} where Alice and Bob take turns
-% 	sending one another bits from least to most-significant,
-% 	until they've agreed on the answer.
-% 	The protocol begins with Alice sending a bit $\texttt{P1} = b$, namely the LSB of $x$.
+\begin{proof}
+We need to show the following.
+\begin{enumerate}[(a)]
+	\item $\text{log}_2 \chi(f) \leq C(f)$
+	\item and, $C(f) \leq 16 \big( \text{log}_2 \chi(f) \big)^2$.
+\end{enumerate}
+We prove (a) then (b).  Suppose that $f$ has communication complexity $C(f)$.
+Then there exists a protocol $\Pi$ in which at most $C(f)$ bits are communicated
+between the two participants.  For simplicity suppose each bit communicated is an individual
+message.  Then $\Pi$ induces a tree whose maximum depth is $C(f)$, and which induces a monochromatic
+partition of $M(f)$.  Since every monochromatic partition of $M(f)$ requires at least $\chi(f)$ rectangles, clearly the tree induced by $\Pi$ must have at least $\chi(f)$ leaves.  But we're talking about a binary tree so it immediately follows that the tree must have at least $\text{log}_2 \chi(f)$ depth.  So (a) holds and we are done.
 
-% Clearly $M(f)$ partitions into two rectangles \textsf{L} and \textsf{R},
-% 	where \textsf{L} considers all the scenarios where the bit Alice sent was 0,
-% 	and \textsf{R} considers all the scenarios where the bit Alice sent was 1.
-% Notice that \textsf{L} and \textsf{R} are strictly smaller than $M(f)$;
-% 	in fact, the number of cells in \textsf{L} plus the number of cells in \textsf{R}
-% 	equals the number of cells in $M(f)$.
-% 	This is what we mean by a \emph{partition}.
+Now let's prove (b).  Consider the function $f : \mathbb{B}^n \times \mathbb{B}^n \to \mathbb{B}$.
+There are, by definition, at most $\chi(f) \geq 1$ distinct values $f(x, y)$.
+\begin{description}
+\item If $\chi(f) = 1$, then there is only one possible value of $f(x, y)$, and so $C(f) = 0$.
+In this case we get $C(f) = 0 \leq 0 = 16 \text{log}_2^2 1 = 16 \, \text{log}_2^2 \, \chi(f)$, so (b) holds and we are done.
+\item If $\chi(f) = 2$, then there are 2 possible values of $f(x, y)$, say, $\alpha$ and $\beta$.  We can partition $\mathbb{B}^n$ into the spaces $X, Y$ where if $x \in X$ then $f(x, y) = \alpha$ if and only if $y \in Y$.  Then Alice could send a single bit indicating if $x \in X$, and Bob could reply with a single bit indicating if $y \in Y$, at which point both Alice and Bob would immediately know the value of $f(x, y)$.  This protocol communication complexity 2, as only 2 bits need to be communicated.  We conclude that if $\chi(f) = 2$, then \(2 = C(f) \leq 16 \big( \text{log}_2 \, \chi(f) \big)^2 = 16 \big( \text{log}_2 \, 2 \big)^2 = 16 (1)^2 = 16\), so (b) holds and we are done.
+\item For the inductive step, suppose that whenever $\chi(f) = k$ for some integer $k \geq 2$, it immediately follows that $C(f) \leq 16 \big( \text{log}_2 \chi(f) \big)^2$.  We want to show the same holds for $k + 1$.  Suppose $\chi(f) = k + 1$.  Choose some possible value $z = f(x, y)$ arbitrarily from the $\leq k + 1$ options.  Partition the space $\mathbb{B}^n$ into sets $X, y$ such that whenever $x \in X$, $f(x, y) = z$ if and only if $y \in Y$.  Have Alice send a single bit $b$ to begin the protocol, indicating if $x \in X$, and have Bob reply with a bit $b'$ indicating if $y \in Y$.  At that point if $f(x, y) = z$ the protocol is over, otherwise it reduces to a protocol over $k$ possible colors and, by our inductive assumption, (b) holds.
+\end{description}
+\end{proof}
 
-% \begin{definition}[Partition]
-% A \emph{partition} of a set $X$ is some list of disjoint subsets $X_0, X_1, ..., X_k$ such that
-% $X_0 \cup X_1 \cup ... \cup X_k = X$.
-% A \emph{monochromatic partition} of $M(f)$ is a partition of $M(f)$ into monochromatic rectangles.
-% The idea is illustrated in Figure~\ref{fig:ill:part}.
-% \end{definition}
+Notice that the tiling method directly relates to the fooling set method.
+Specifically, if $f$ has a fooling set with $m$ pairs, then $\chi(f) \geq m$.
+\begin{proof}
+Suppose $(x, y), (\bar{x}, \bar{y})$ are two of the pairs in the fooling set.
+Then they cannot be in a monochromatic rectangle, since by definition, the following set contains at least
+two distinct values:
+\[\big\{ f(x, y), 
+         f(x, \bar{y}),
+         f(\bar{x}, y)
+         f(\bar{x}, \bar{y}) \big\}\]
+\end{proof}
 
-% \begin{figure}[h]
-% \centering
-% \begin{forest}, baseline, qtree
-% [$M(f)$
-% 	[Partition \textsf{L} of $M(f)$\\where Alice sent 0
-% 		[Partition \textsf{LL} of \textsf{L}\\
-% 		where Bob replied 0
-% 			[...]
-% 			[...]]
-% 		[Partition \textsf{LR} of \textsf{L}\\
-% 		where Bob replied 1
-% 			[...]
-% 			[...]]]
-% 	[Partition \textsf{R} of $M(f)$\\where Alice sent 1
-% 		[Partition \textsf{RL} of \textsf{R}\\
-% 		 where Bob replied 0
-% 		 	[...]
-% 		 	[...]]
-% 		[Partition \textsf{RR} of \textsf{R}\\
-% 		 where Bob replied 1
-% 		 	[...]
-% 		 	[...]]]]
-% \end{forest}
-% \caption{Tree structure for the na{\"i}ve protocol \textsc{LSB} for the function $<$.}
-% \label{fig:ill:part}
-% \end{figure}
-
-% Consider the \textsf{L} branch.
-% The case of the original protocol where Alice starts by sending a 0
-% 	is precisely the smaller protocol in which Bob makes the first move,
-% 	rooted in \textsf{L}.
-% In other words, we have an inductive structure,
-% 	where every step in a protocol $\Pi$ yields
-% 	a new, smaller protocol.
-% Every step down the tree further disjointly partitions
-% the space of possible values $f(x, y)$.
-% Since there were finitely many such values $f(x, y) \in M(f)$ in the first place,
-% 	clearly every such walk must eventually end in a \emph{leaf} of the tree.
-% In fact, each leaf is monochromatic.
-% \begin{proof}
-% For a contradiction assume some leaf \textsf{J} is not monochromatic.
-% That is, \textsf{J} has entries $i$ and $j$ such that $i \neq j$.
-% Since $i \neq j$ we know that they are in different cells.
-% WLOG suppose $i$ and $j$ occur in different rows.
-% Then the row of $i$ or $j$ refers to a bit of information about $x$ which Alice did not
-% yet share with Bob.  (We know it's of $x$ as it's a row; we know she did not share it yet as otherwise the subsequent partitioning would seperate $i$ and $j$.)
-% But this implies that we are not at a leaf yet, since Alice could send another bit of information
-% and depending on that bit, partition the set of possible values $f(x, y)$ disjointly,
-% into a set containing $i$ and another containing $j$.
-% So we have reached a contradiction since we assumed \textsf{J} was a leaf, and we are done.
-% \end{proof}
-% We have just considered one protocol, $\Pi$, namely the protocol where Alice and Bob take turns
-% reading aloud the bits of their input from least-significant to most-significant.
-% And we've seen that this induces a natural upper bound on the communication complexity of $f$,
-% namely the maximum depth of the tree we computed for $\Pi$ where each branch ends as soon as it
-% becomes monochromatic.
-% But maybe there is some \emph{better} protocol $\Pi'$, which achieves a better communication complexity,
-% i.e., that yields a less-obvious, tighter upper bound.
-% Given $f$, let $\chi(f)$ denote the minimum number of rectangles in any monochromatic tiling of $M(f)$.
-% Then we claim the following.
-% \begin{theorem}[\texttt{AUY83}]
-% \[\emph{log}_2 \, \chi(f) \leq
-% C(f) \leq
-% 16\big(\emph{log}_2 \, \chi(f) \big)^2\]
-% \end{theorem}
-% \begin{itemize}
-% \item \TODO - prove it and explain and illustrate the proof
-% \item \TODO - give and prove Lemma 13.9 relating to fooling set
-% \end{itemize}
-
-
-% \begin{figure}
-% \centering
-% \begin{forest}
-%  [\(\begin{bmatrix}
-%  0 & 1 & 1 & 1 & 1 \\
-%  0 & 0 & 1 & 1 & 1 \\
-%  0 & 0 & 0 & 1 & 1 \\
-%  0 & 0 & 0 & 0 & 1 \\
-%  0 & 0 & 0 & 0 & 0
-%  \end{bmatrix}\)
-%  	% right-most bit of Alice is 0
-%  	[\(\begin{bmatrix}
-%  	0 & 1 & 1 & 1 & 1 \\ % row 1
-%  	0 & 0 & 0 & 1 & 1 \\ % row 3
-%  	0 & 0 & 0 & 0 & 0    % row 5
-%  	\end{bmatrix}\)
-%  		% right-most bit of Bob is 0
-%  		[\(\begin{bmatrix}
-%  		% col 1 | col 3 | col 5
-%  		0       & 1     & 1 \\ % row 1
-%  		0       & 0     & 1 \\ % row 3
-%  		0       & 0     & 0 \\ % row 5
-%  		\end{bmatrix}\)
-%  			% middle bit of Alice is 0
-%  			% middle bit of Alice is 1
-%  		]
-%  		% right-most bit of reply is 1
-%  		[\(\begin{bmatrix}
-%  		% col 2 | col 4
-%  		1       & 1 \\ % row 1
-%  		0       & 1 \\ % row 3
-%  		0       & 0 \\ % row 5
-%  		\end{bmatrix}\)]
-%  	]
-%  	% right-most bit is 1
-%  	[\(\begin{bmatrix}
-%  	0 & 0 & 1 & 1 & 1 \\ % row 2
-%  	0 & 0 & 0 & 0 & 1    % row 4
-%  	\end{bmatrix}\)
-%  		% right-most bit of reply is 0
-%  		% right-most bit of reply is 1
-%  	]
-%  ]
-% \end{forest}
-% \end{figure}
 
 % \bibliographystyle{IEEEtran}
 % \bibliography{htm}
