@@ -1,0 +1,161 @@
+\title{Fooling Sets}
+\author{Jake Kinsella}
+\date{\today}
+
+\documentclass[12pt]{article}
+
+\input{../tiling/header}
+
+\begin{document}
+\maketitle
+
+Consider a two-party protocol for determining whether two inputs are equal:
+\begin{equation}
+  EQ(x, y) =
+  \begin{cases}
+    1 \text{ if x=y} \\
+    0 \text{ otherwise}
+  \end{cases}
+\end{equation}
+
+
+The "obvious protocol" is for Player 1 to send it's entire input to Player 2 and let Player 2 compare the values itself.
+\\
+
+\textbf{Protocol $\Pi$}
+\begin{center}
+  \begin{tabular}{ |m{15em}|m{15em}| } 
+    \hline
+    Player 1                   & Player 2 \\ [0.5ex] 
+    \hline
+    $x=111$                    & $y=110$ \\
+    $P_{1}(x) \longrightarrow$ &  \\
+                               & $p_{1} = 111$ \\
+                               & $\longleftarrow P_{2}(y, p_{1}) = P_{2}(110, 111) = 0$ \\
+    $p_{2} = 0$                & \\
+    \hline
+  \end{tabular}
+\end{center}
+
+In this example, 4 bits are communicated. More generally the $C(\Pi) = |x| + 1$, the cost for Player 1 to communicate x
+plus one bit for Player 2 to communicate the answer.
+\\
+
+\textbf{Theorem:} $C(EQ) \geq n$
+\\
+
+\textbf{Claim:} For any $(x, x)$ and $(x', x')$, if on both inputs, both Players communicate the exact same sequence of
+bits, then $f(x, x) = f(x', x') = f(x, x') = f(x', x)$
+
+\begin{multicols}{2}
+
+  $(x, x)$
+  \begin{center}
+    \begin{tabular}{ |m{7em}|m{7em}| } 
+      \hline
+      Player 1                   & Player 2 \\ [0.5ex] 
+      \hline
+      $x$                        & $x$ \\
+      $P_{1}(x) \longrightarrow$ &  \\
+                                 & $p_{1}$ \\
+                                 & $\longleftarrow P_{2}(x, p_{1})$ \\
+      $p_{2}$                    & \\
+      \hline
+    \end{tabular}
+  \end{center}
+
+\columnbreak
+
+  $(x', x')$
+  \begin{center}
+    \begin{tabular}{ |m{7em}|m{7em}| } 
+      \hline
+      Player 1                   & Player 2 \\ [0.5ex] 
+      \hline
+      $x$                        & $x$ \\
+      $P_{1}(x') \longrightarrow$ &  \\
+                                 & $p_{1}'$ \\
+                                 & $\longleftarrow P_{2}(x', p_{1}')$ \\
+      $p_{2}'$                   & \\
+      \hline
+    \end{tabular}
+  \end{center}
+
+\end{multicols}
+
+$p_{1} = p_{1}'$ and $p_{2} = p_{2}'$
+$p_{2} = p_{2}'$ is the final answer.
+\\
+
+If $(x, x)$ and $(x', x')$ have the same communication pattern, then it doesn't matter which way the inputs are mixed.
+Each $x$ and $x'$ produce the same bits.
+\\
+
+If they produce the same sequence of bits, then they agree on the output (as the output is just the final bit).
+\\
+
+\textbf{Proof:} $C(EQ) \geq n$
+\\
+
+Assume a protocol $\Pi'$ with complexity $n - 1$ exists that solves $EQ$.
+\\
+
+$\Pi'$ has $2^{n - 1}$ (${0, 1}$ over $n - 1$ bits) possible communication patterns if it can communicate a max $n - 1$
+bits.
+\\
+
+However, there are $2^{n}$ input pairs $(x, x)$ ($|x| = n$, ${0, 1}$ over $n$ bits)
+\\
+
+$\Pi'$ has $2^{n - 1}$ possible communication patterns.
+However there are $2^{n}$ equal input pairs.
+
+Thus there exists some:
+$(x, x)$ and $(x', x')$ where $x \neq x'$ that have the same communication protocol
+\\
+
+This is a contradiction.
+\\
+$EQ(x, x') = 0 \neq EQ(x, x)$
+\\
+
+Thus: $C(EQ) \geq n$
+\\
+
+\textbf{Lemma (generalization of the above theorem)}: Given some $f : {0, 1}^{n} \times {0, 1}^{n} \rightarrow {0, 1}$. $f$
+has a M-sized fooling set if there exists an M-sized subset $S \subset {0, 1}^{n} \times {0, 1}^{n}$ and a value
+$b \in {0, 1}$ such that:
+\par{1) $\forall (x, y) \in S, f(x, y) = b$}
+\par{2) $\forall distinct (x, y), (x', y') \in S, either f(x, y') \neq b or f(x', y) \neq b$}
+\\
+If $f$ has a size-M fooling set, then $C(f) \geq log(M)$
+\\
+
+\textbf{Example:}
+\par{Determining whether two sets are disjoint across two parties.}
+
+\par{$x, y \subset {1, 2, ..., n} \\$}
+\\
+\par{
+  \begin{equation}
+    DISJ(x, y) =
+    \begin{cases}
+      1 \text{ if } x \cap y = \emptyset \\
+      0 \text{ otherwise}
+    \end{cases}
+  \end{equation}
+}
+
+\par{Fooling set for $DISJ$:}
+
+\par{$S = {(A, \overline{A}) | A \subset {1, 2, ..., n}}$}
+\par{\hspace{\parindent} 1) $\forall A, DISJ(A, \overline{A}) = 1$}
+\par{\hspace{\parindent} 2) $\forall (A, \overline{A}), (B, \overline{B}), either DISJ(A, \overline{B}) = 0 or DISJ(B, \overline{A}) = 0$}
+\\
+\par{There are $2^{n}$ possible A sets}
+\\
+\par{Thus S is a $2^{n}$-sized fooling set}
+\\
+\par{Therefore $C(DISJ) \geq log(M) \geq n$}
+
+\end{document}
