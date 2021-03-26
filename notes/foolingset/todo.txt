@@ -1,1 +1,0 @@
-This is a hand written draft for the fooling set proof. I'll turn it into a LaTeX document tomorrow morning.
