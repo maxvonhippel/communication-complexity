@@ -17,18 +17,17 @@
 \par{"Are the number of ones in xy even or odd?"}
 \\
 
-% TODO: JK the answer for this might be wrong %
 \textbf{Protocol $\Pi$}
 \begin{center}
   \begin{tabular}{ |m{15em}|m{15em}| } 
     \hline
-    Player 1                                  & Player 2 \\ [0.5ex] 
+    Player 1                                   & Player 2 \\ [0.5ex] 
     \hline
-    $x=101$                                   & $y=110$ \\
-    $P_{1}(x)=\bigoplus 101 = 1 \longrightarrow$ &  \\
-                                              & $p_{1} = 1$ \\
-                                              & $\longleftarrow P_{2}(y, p_{1}) = (\bigoplus 110) \bigoplus 1 = 1$ \\
-    $p_{2} = 1$                               & \\
+    $x=101$                                    & $y=110$ \\
+    $P_{1}(x)=parity(101) = 0 \longrightarrow$ &  \\
+                                               & $p_{1} = 0$ \\
+                                               & $\longleftarrow P_{2}(y, p_{1}) = parity(110) \bigoplus 1 = 0$ \\
+    $p_{2} = 0$                                & \\
     \hline
   \end{tabular}
 \end{center}
