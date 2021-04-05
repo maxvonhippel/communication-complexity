@@ -1,0 +1,200 @@
+\usepackage{usenixy}
+\usepackage{
+  amsmath,mathtools,amssymb,fullpage,
+  amsthm,centernot,float,diagbox,adjustbox,
+  graphicx,caption,subcaption,listings,
+  enumerate,xcolor,hyperref,color,soul,
+  stmaryrd,amsrefs,titling,tikz,
+  mathrsfs,etoolbox,refcount,multicol,MnSymbol,
+  yfonts,framed,relsize,colortbl,pgf-umlsd,varwidth,
+  environ,xparse,forest}
+\lstset{
+  language=Lisp,
+  basicstyle=\ttfamily,
+}
+\usepackage[many]{tcolorbox}
+
+\forestset{qtree/.style={for tree={parent anchor=south, 
+           child anchor=north,align=center,inner sep=0pt}}}
+% \usepackage{flexisym}
+
+
+\usepackage[framemethod=tikz]{mdframed}
+
+\newcommand{\grayleftbar}[1]{\textcolor[gray]{0.7}{%
+     \begin{leftbar}\textcolor{black}{#1}\end{leftbar}}}   
+\newcommand{\darkleftbar}[1]{\textcolor[gray]{0.3}{%
+     \begin{leftbar}\textcolor{black}{#1}\end{leftbar}}}   
+
+\newcounter{countitems}
+\newcounter{nextitemizecount}
+\newcommand{\setupcountitems}{%
+  \stepcounter{nextitemizecount}%
+  \setcounter{countitems}{0}%
+  \preto\item{\stepcounter{countitems}}%
+}
+\makeatletter
+\newcommand{\computecountitems}{%
+  \edef\@currentlabel{\number\c@countitems}%
+  \label{countitems@\number\numexpr\value{nextitemizecount}-1\relax}%
+}
+\newcommand{\nextitemizecount}{%
+  \getrefnumber{countitems@\number\c@nextitemizecount}%
+}
+\newcommand{\previtemizecount}{%
+  \getrefnumber{countitems@\number\numexpr\value{nextitemizecount}-1\relax}%
+}
+\makeatother    
+\newenvironment{AutoMultiColItemize}{%
+\ifnumcomp{\nextitemizecount}{>}{3}{\begin{multicols}{2}}{}%
+\setupcountitems\begin{itemize}}%
+{\end{itemize}%
+\unskip\computecountitems\ifnumcomp{\previtemizecount}{>}{3}{\end{multicols}}{}}
+
+\usepackage{titlesec}
+\usetikzlibrary{
+    arrows,shapes,positioning,decorations.markings,
+    decorations.pathreplacing,hobby,automata,tikzmark}
+\tikzset{
+    looped/.style={
+        decoration={markings,mark=at position 0.999 with {\arrow[scale=2]{>}}},
+        postaction={decorate},
+        >=stealth
+    },
+    straight/.style={
+        decoration={markings,mark=at position 1 with {\arrow[scale=2]{>}}},
+        postaction={decorate},
+        >=stealth
+    },
+    loopedSF/.style={
+        decoration={
+            markings,
+            mark=at position 0.999 with {\arrow[scale=2]{>}},
+            mark=at position 0.5 with {\arrow[scale=2]{>}}},
+        postaction={decorate},
+        >=stealth
+    },
+    straightSF/.style={
+        decoration={
+            markings,
+            mark=at position 0.999 with {\arrow[scale=2]{>}},
+            mark=at position 0.5 with {\arrow[scale=2]{>}}},
+        postaction={decorate},
+        >=stealth
+    },
+    triangle/.style = {fill=white, draw=black, regular polygon, regular polygon sides=3 },
+    initial text=$$, % sets the text that appears on the start arrow
+    node distance=1.5cm, % specifies the minimum distance between two nodes. Change if necessary.
+    ->, % makes the edges directed
+}
+\titleformat{\subsection}[runin]
+{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+\titleformat{\subsubsection}[runin]
+{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+
+
+\definecolor{mycolor}{rgb}{0.122, 0.435, 0.698}
+
+\newmdenv[innerlinewidth=0.5pt, roundcorner=4pt,linecolor=mycolor,innerleftmargin=6pt,
+innerrightmargin=6pt,innertopmargin=6pt,innerbottommargin=6pt]{mybox}
+
+\usepackage[pdf]{graphviz}
+\usetikzlibrary{shapes,arrows,calc}
+\usepackage[utf8]{inputenc}
+
+\setlength{\droptitle}{-7em}
+\posttitle{\par\end{center}}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{problem}{Problem}
+\newtheorem{example}{Example}
+\newtheorem{remark}{Remark}
+
+\newcommand{\TODO}[0]{\textcolor{red}{TODO}}
+\newcommand{\F}[0]{\mathsf{F}}
+\newcommand{\U}[0]{\mathsf{U}}
+\newcommand{\G}[0]{\mathsf{G}}
+\newcommand{\X}[0]{\mathsf{X}}
+\newcommand{\acs}[0]{\textsc{ACL2S}}
+\newcommand{\acl}[0]{\textsc{ACL2}}
+\newcommand{\pr}[0]{\textsc{Promela}}
+\newcommand{\ko}[0]{\textsc{Korg}}
+\newcommand{\spn}[0]{\textsc{SPIN}}
+\newcommand{\ie}{\emph{i.e.}}
+\newcommand{\etal}{\emph{et al.}}
+
+\newcommand{\Pcl}[0]{\textsc{P}}
+\newcommand{\NP}[0]{\textsc{NP}}
+\newcommand{\SAT}[0]{\texttt{SAT}}
+\newcommand{\coNP}[0]{\textsc{coNP}}
+\newcommand{\Time}[0]{\text{TIME}}
+\newcommand{\Space}[0]{\text{SPACE}}
+\newcommand{\threeSAT}[0]{\texttt{3SAT}}
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows,chains,matrix,positioning,scopes}
+
+\newlength{\bubblewidth}
+\AtBeginDocument{\setlength{\bubblewidth}{.55\textwidth}}
+\definecolor{bubblegreen}{RGB}{103,184,104}
+\definecolor{bubblegray}{RGB}{241,240,240}
+
+\newcommand{\bubble}[4]{%
+  \tcbox[
+    colback=#1,
+    colframe=#1,
+    #2,
+  ]{\color{#3}\begin{varwidth}{\bubblewidth}#4\end{varwidth}}%
+}
+
+\ExplSyntaxOn
+\seq_new:N \l__ooker_bubbles_seq
+\tl_new:N \l__ooker_bubbles_first_tl
+\tl_new:N \l__ooker_bubbles_last_tl
+
+\NewEnviron{rightbubbles}
+ {
+  \raggedleft\sffamily
+  \seq_set_split:NnV \l__ooker_bubbles_seq { \par } \BODY
+  \int_compare:nTF { \seq_count:N \l__ooker_bubbles_seq < 2 }
+   {
+    \bubble{bubblegreen}{rounded~corners}{white}{\BODY}
+   }
+   {
+    \seq_pop_left:NN \l__ooker_bubbles_seq \l__ooker_bubbles_first_tl
+    \seq_pop_right:NN \l__ooker_bubbles_seq \l__ooker_bubbles_last_tl
+    \bubble{bubblegreen}{sharp~corners=southeast}{white}{\l__ooker_bubbles_first_tl}\par
+    \seq_map_inline:Nn \l__ooker_bubbles_seq
+     {
+      \bubble{bubblegreen}{sharp~corners=east}{white}{##1}\par
+     }
+    \bubble{bubblegreen}{sharp~corners=northeast}{white}{\l__ooker_bubbles_last_tl}\par
+   }
+ }
+\NewEnviron{leftbubbles}
+ {
+  \raggedright\sffamily
+  \seq_set_split:NnV \l__ooker_bubbles_seq { \par } \BODY
+  \int_compare:nTF { \seq_count:N \l__ooker_bubbles_seq < 2 }
+   {
+    \bubble{bubblegray}{rounded~corners}{black}{\BODY}
+   }
+   {
+    \seq_pop_left:NN \l__ooker_bubbles_seq \l__ooker_bubbles_first_tl
+    \seq_pop_right:NN \l__ooker_bubbles_seq \l__ooker_bubbles_last_tl
+    \bubble{bubblegray}{sharp~corners=southwest}{black}{\l__ooker_bubbles_first_tl}\par
+    \seq_map_inline:Nn \l__ooker_bubbles_seq
+     {
+      \bubble{bubblegray}{sharp~corners=west}{black}{##1}\par
+     }
+    \bubble{bubblegray}{sharp~corners=northwest}{black}{\l__ooker_bubbles_last_tl}\par
+   }
+ }
+\ExplSyntaxOff

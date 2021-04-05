@@ -1,0 +1,54 @@
+\title{The 2-Party Discrepency Method}
+\author{Max von Hippel}
+\date{\today}
+
+\documentclass[12pt]{article}
+
+\include{header}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+When we partition $M(f)$ into some number of rectangles,
+	the sizes of the rectangles must add up to the size of $M(f)$.
+Hence, if $\chi(f) \leq K$ for some integer $K$,
+	then $M(f)$ must have a monochromatic rectangle containing at least $2^n * 2^n / K$ entries.
+\begin{proof}
+Suppose that $\chi(f) \leq K$ for some integer $K$.
+If $\chi(f) = K$ then there exists a partioning of $M(f)$ into $K$ monochromatic rectangles, in which case at least one of those rectangles must have size $\geq \abs{M(f)} / K$, i.e., $2^n * 2^n / K$.  On the other hand if $\chi(f) < K$ then $\chi(f) = K'$ for some $K' < K$ and then $M(f)$ can be partitioned into $K'$ monochromatic rectangles, at least of which has size $\geq \abs{M(f)} / K'$, which is strictly larger than $\abs{M(f)} / K$.  So in either case the result holds and we are done.
+\end{proof}
+Now, suppose that $M(f)$ contains a monochromatic rectangle $A \times B$ having at least $2^n * 2^n / K$ entries.
+Since $A \times B$ is monochromatic, this implies that:
+\[\sum_{a \in A, b \in B} (-1)^{M_{a,b}} = \begin{cases}
+-1 * \text{ the size of the rectangle } A \times B & \text{ if it's colored } 1 \\
+ 1 * \text{ the size of the rectangle } A \times B & \text{ if it's colored } 0\end{cases}\]
+So if we wrap an absolute value above our sum, we get:
+\[\abs{\sum_{a \in A, b \in B} (-1)^{M_{a,b}}} = \text{ the size of the rectangle } A \times B\]
+But we already assumed that $A \times B$ has at least $2^n * 2^n / K$ entries, hence:
+\[\abs{\sum_{a \in A, b \in B} (-1)^{M_{a,b}}} = \text{ the size of the rectangle } A \times B \geq 2^n * 2^n / K\]
+Let's divide both size by $2^n * 2^n$, for fun and profit.
+\[\frac{1}{2^n * 2^n}\abs{\sum_{a \in A, b \in B} (-1)^{M_{a,b}}} \geq 1 / K\]
+We are mathematicians, and mathematicians like to name things.
+Let's do that.
+\begin{definition}[Discrepency]
+The \emph{discrepency} of a rectangle $A \times B$ of $M(f)$ is exactly the following.
+\[\emph{Disc}(A \times B) = \frac{1}{2^n * 2^n}\abs{\sum_{a \in A, b \in B} (-1)^{M_{a,b}}}\]
+The \emph{discrency of $M(f)$} is the maximum discrepency among all its rectangles.
+\end{definition}
+Now that we've named this thing, let's re-write our inequality.
+\[\emph{Disc}(A \times B) \geq 1 / K\]
+Taking inverses:
+\[\frac{1}{\emph{Disc}(A \times B)} \leq K\]
+Certainly $\chi(f) \leq \chi(f)$, so supplanting $\chi(f)$ for $K$ in the statement, we get:
+\begin{equation}
+\frac{1}{\emph{Disc}(A \times B)} \leq \chi(f)
+\label{eqRes}
+\end{equation}
+This result generalizes as follows.
+\begin{lemma}[2-Party Discrepency Method]
+Suppose $f : \mathbb{B}^n \times \mathbb{B}^n \to \mathbb{B}$ is a function.
+Then Equation~\ref{eqRes} holds.
+\end{lemma}
+\end{document}
