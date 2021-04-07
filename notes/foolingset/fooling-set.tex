@@ -44,8 +44,14 @@ plus one bit for Player 2 to communicate the answer.
 \textbf{Theorem:} $C(EQ) \geq n$
 \\
 
+\par{Essentially, we're looking to prove a lower bound on EQ specifically and then generalize it to lower bounds on
+other functions. Afterwards, we'll dive into both lower and upper bounds}
+
 \textbf{Claim:} For any $(x, x)$ and $(x', x')$, if on both inputs, both Players communicate the exact same sequence of
 bits, then $f(x, x) = f(x', x') = f(x, x') = f(x', x)$
+
+\par{In terms of EQ, if protocol $\Pi$ communicates the exact same sequence of bits for two pairs $(x, x)$ and
+$(x', x')$, including the final communication (i.e. the result of EQ), then the inputs are the same.}
 
 \begin{multicols}{2}
 
@@ -122,11 +128,11 @@ $EQ(x, x') = 0 \neq EQ(x, x)$
 Thus: $C(EQ) \geq n$
 \\
 
-\textbf{Lemma (generalization of the above theorem)}: Given some $f : {0, 1}^{n} \times {0, 1}^{n} \rightarrow {0, 1}$. $f$
-has a M-sized fooling set if there exists an M-sized subset $S \subset {0, 1}^{n} \times {0, 1}^{n}$ and a value
-$b \in {0, 1}$ such that:
+\textbf{Lemma (generalization of the above theorem)}: Given some $f : \{0, 1\}^{n} \times \{0, 1\}^{n} \rightarrow \{0, 1\}$. $f$
+has a M-sized fooling set if there exists an M-sized subset $S \subset \{0, 1\}^{n} \times \{0, 1\}^{n}$ and a value
+$b \in \{0, 1\}$ such that:
 \par{1) $\forall (x, y) \in S, f(x, y) = b$}
-\par{2) $\forall distinct (x, y), (x', y') \in S, either f(x, y') \neq b or f(x', y) \neq b$}
+\par{2) $\forall distinct (x, y), (x', y') \in S, either f(x, y') \neq b \text{or} f(x', y) \neq b$}
 \\
 If $f$ has a size-M fooling set, then $C(f) \geq log(M)$
 \\
@@ -150,7 +156,7 @@ If $f$ has a size-M fooling set, then $C(f) \geq log(M)$
 
 \par{$S = {(A, \overline{A}) | A \subset {1, 2, ..., n}}$}
 \par{\hspace{\parindent} 1) $\forall A, DISJ(A, \overline{A}) = 1$}
-\par{\hspace{\parindent} 2) $\forall (A, \overline{A}), (B, \overline{B}), either DISJ(A, \overline{B}) = 0 or DISJ(B, \overline{A}) = 0$}
+\par{\hspace{\parindent} 2) $\forall (A, \overline{A}), (B, \overline{B}), \text{either} DISJ(A, \overline{B}) = 0 \text{or} DISJ(B, \overline{A}) = 0$}
 \\
 \par{There are $2^{n}$ possible A sets}
 \\
