@@ -1,0 +1,131 @@
+\title{The Multi-Party Discrepency Method}
+\author{Max von Hippel}
+\date{\today}
+
+\documentclass[12pt]{article}
+
+\include{header}
+
+\begin{document}
+\maketitle
+
+We begin by generalizing our discrepency definition to a multi-party setting.
+The general form is basically the same as the 2-party form, except we reason about intersections in cylinders, rather than rectangles in partitions.
+\begin{definition}[Multi-Party Discrepency]
+Suppose
+\[f : \underbrace{\mathbb{B}^n \times ... \times \mathbb{B}^n}_{k \text{ times}} \to \mathbb{B}\]
+is a function.  Then the \emph{$k$-party discrepency of $f$} is defined as follows, where $T$ ranges over all cylinder intersections of $f$.
+\[\emph{Disc}(f) = \frac{1}{(2^n)^k} \max_T \abs{\sum_{(x_1,...,x_k) \in T} f(x_1,...,x_k)}\]
+\end{definition}
+For even moderaly sized $n$ and $k$, this definition becomes unreasonable to compute on-the-fly.  But if we could lower-bound the discrepency, for example, using a statistical method, then we could get a slightly looser (but, cheaper) lower-bound on the communication complexity.
+First we need two useful but non-intuitive definitions.
+\begin{definition}[$(k, n)$-Cube]
+A $(k, n)$-cube is a set $D$ of the form
+\[D = \{ a_1, a_1' \} \times ... \times \{ a_k, a_k' \}\]
+where each $a_i, a_i' \in \mathbb{B}^n$.
+To be clear, a point in $d$ is a vector $(x_1, x_2, ..., x_k)$ where each $x_i \in \{ a_i, a_i' \}$.
+\end{definition}
+\begin{definition}[$\mathcal{E}$]
+Let $f : (\mathbb{B}^n)^k \to \mathbb{B}$ be a function.
+Then:
+\[\mathcal{E}(f) = \underset{\substack{D \text{ is a}\\(k, n)\text{-cube}}}{{\LARGE \text{E}}} \Big[\prod_{\vec{d} \in D} f(\vec{d}) \Big]\]
+In other words, $\mathcal{E}(f)$ denotes the expectation over the question,
+	\emph{given an arbitrary cube $D$, what is the product of the image of $f$ over all the points $\vec{d} \in D$?}
+\end{definition}
+Although somewhat scary-looking, this definition pays dividends immediately.
+\begin{lemma}[$k$-Party Discrepency Bound]
+If $f : (\mathbb{B}^n)^k \to \mathbb{B}$ is a function,
+then $\emph{Disc}(f) \leq (\mathcal{E}(f))^{1/2^k}$.
+\end{lemma}
+Why do we care?  Well, we could approximate $\mathcal{E}(f)$ statistically,
+	by checking a ton of random cubes.
+	And in this way we could get a decent idea of what an upper bound
+	on the discrepency looks like.
+	But then recall that the logarithm of the inverse of the discrepency
+	lower-bounds the complexity.
+	Hence, any upper-bound on discrepency naturally induces a lower-bound on complexity.
+	So we've found a way to compute a lower-bound on the complexity without doing
+	all the work of computing the discrepency, which is kind of cool.
+The proof is pretty complicated, but here's a proof sketch.
+\begin{proof}
+Given any arbitrary cylinder intersection and $(n, k)$-cube, what is the expectation of the image of points in the cube under $f$?  What if we only consider points falling in the cylinder intersection?
+Derive a lower bound on $\mathcal{E}(f)$ which looks something like
+\[\mathcal{E}(f) \geq E_{x_1,...,x_k}[f(x_1,....,x_k)(1 \text{ if } (x_1,...,x_k) \in C \text{ else } 0)]^{2k}\]
+given a cylinder intersection $C$.
+Argue from the definition of the $k$-party discrepency that this gives a natural lower-bound $\mathcal{E}(f) \geq \emph{Disc}(f)^{2k}$.
+But this implies \(\emph{Disc}(f) \leq (\mathcal{E}(f))^{1/2^k}\), and we're done.
+\end{proof}
+
+% The proof is in the pudding.
+% Just kidding, it's an exercise in the book and it looks mega-difficult.
+% Instead, here is a super hand-wavey proof sketch.
+% \begin{proof}
+% By definition, 
+% % \[\begin{aligned}
+% % \mathcal{E}(f) 
+% % 	& = \underset{\substack{D \text{ is a}\\(k, n)\text{-cube}}}{{\LARGE \text{E}}} \Big[\prod_{\vec{d} \in D} f(\vec{d}) \Big] \\
+% % 	& = \underset{
+% % 		D \in (\mathbb{B}^n \times \mathbb{B}^n)^k
+% % 	}{{\LARGE \text{E}}} \Big[\prod_{\vec{d} \in D} f(\vec{d}) \Big] \\
+% % 	& = \underset{D_1 \in \mathbb{B}^n \times \mathbb{B}^n}{\LARGE \text{E}} ...
+% % 	    \underset{D_k \in \mathbb{B}^n \times \mathbb{B}^n}{\LARGE \text{E}}
+% % 	    \Big[ \prod_{x_1 \in \{ d_1, d_1' \}}
+% % 	    	  ...
+% % 	    	  \prod_{x_{k-1} \in \{ d_{k-1}, d_{k-1}' \}}
+% % 	    	  \prod_{x_k \in \{ d_k, d_k' \}}
+% % 	    	  f(x_1, ..., x_{k-1} x_k)
+% % 	    \Big] \\
+% % 	 & = \underset{\{ d_1, d_1' \} \in \mathbb{B}^n \times \mathbb{B}^n}{\LARGE \text{E}} ...
+% % 	    \underset{\{ d_k, d_k' \} \in \mathbb{B}^n \times \mathbb{B}^n}{\LARGE \text{E}}
+% % 	    \Big[ \prod_{x_1 \in \{ d_1, d_1' \}}
+% % 	    	  ...
+% % 	    	  \prod_{x_{k-1} \in \{ d_{k-1}, d_{k-1}' \}}
+% % 	    	  f(x_1, ..., x_{k-1}, d_k) * f(x_1, ..., x_{k-1}, d_k')
+% % 	    \Big] \\
+% % 	& = \underset{\{ d_1, d_1' \} \in \mathbb{B}^n \times \mathbb{B}^n}{\LARGE \text{E}} ...
+% % 	    \underset{\{ d_k, d_k' \} \in \mathbb{B}^n \times \mathbb{B}^n}{\LARGE \text{E}}
+% % 	    \Big[ \prod_{x_1 \in \{ d_1, d_1' \}}
+% % 	    	  ...
+% % 	    	  \prod_{x_{k-1} \in \{ d_{k-1}, d_{k-1}' \}}
+% % 	    	  f(x_1, ..., x_{k-1}, d_k) * f(x_1, ..., x_{k-1}, d_k')
+% % 	    \Big] \\
+% % 	& = \underset{\{ d_1, d_1' \} \in \mathbb{B}^n \times \mathbb{B}^n}{\LARGE \text{E}} ...
+% % 	    \underset{\{ d_k, d_k' \} \in \mathbb{B}^n \times \mathbb{B}^n}{\LARGE \text{E}}
+% % 	    \Big[ \prod_{x_1 \in \{ d_1, d_1' \}}
+% % 	    	  ...
+% % 	    	  \prod_{x_{k-1} \in \{ d_{k-1}, d_{k-1}' \}}
+% % 	    	  f(x_1, ..., x_{k-1}, d_k) * f(x_1, ..., x_{k-1}, d_k')
+% % 	    \Big] \\
+% % 	& = \underset{\{ d_1, d_1' \} \in \mathbb{B}^n \times \mathbb{B}^n}{\LARGE \text{E}} ...
+% % 	    \underset{\{ d_{k-1}, d_{k-1}' \} \in \mathbb{B}^n \times \mathbb{B}^n}{\LARGE \text{E}}
+% % 	    \Big[ \prod_{x_1 \in \{ d_1, d_1' \}}
+% % 	    	  ...
+% % 	    	  \prod_{x_{k-1} \in \{ d_{k-1}, d_{k-1}' \}}
+% % 	    	  \underset{d_k \in \mathbb{B}^n}{\LARGE \text{E}}
+% % 	    	  f(x_1, ..., x_{k-1}, d_k) 
+% % 	    	  \underset{d_k' \in \mathbb{B}^n}{\LARGE \text{E}}
+% % 	    	  f(x_1, ..., x_{k-1}, d_k')
+% % 	    \Big] \\
+% % 	& = \underset{\{ d_1, d_1' \} \in \mathbb{B}^n \times \mathbb{B}^n}{\LARGE \text{E}} ...
+% % 	    \underset{\{ d_{k-1}, d_{k-1}' \} \in \mathbb{B}^n \times \mathbb{B}^n}{\LARGE \text{E}}
+% % 	    \Big[ \prod_{x_1 \in \{ d_1, d_1' \}}
+% % 	    	  ...
+% % 	    	  \prod_{x_{k-1} \in \{ d_{k-1}, d_{k-1}' \}}
+% % 	    	  (\underset{d_k \in \mathbb{B}^n}{\LARGE \text{E}}
+% % 	    	  f(x_1, ..., x_{k-1}, d_k))^2
+% % 	    \Big] \\
+% % 	& = (\underset{d_1 \in \mathbb{B}^n}{\LARGE \text{E}} [
+% % 	      (\underset{d_2 \in \mathbb{B}^n}{\LARGE \text{E}} [
+% % 	      	...
+% % 	      		(\underset{d_k \in \mathbb{B}^n}{\LARGE \text{E}} [ f(d_1,...,d_k) ])^2 ])^2 .... ])^2 \\
+% % 	& \geq \Big( 
+% % 	\underset{d_1 \in \mathbb{B}^n}{\LARGE \text{E}} [
+% % 		\underset{d_2 \in \mathbb{B}^n}{\LARGE \text{E}} [
+% % 			...
+% % 			\underset{d_k \in \mathbb{B}^n}{\LARGE \text{E}} [
+% % 				f(d_1,...,d_k) ] ... ]]
+% % 	\Big)^{2k}
+% % \end{aligned}\]
+% The next part of the proof is to relate the term on the right-hand-side to the discrepency.  The trick is to show that the expectation of the function is at most the di
+% \end{proof}
+\end{document}
