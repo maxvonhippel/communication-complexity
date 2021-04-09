@@ -1,0 +1,18 @@
+\begin{example}[Are the number of \texttt{1}s in $xy$ even (0), or odd (1)?]
+\[f : \mathbb{B}^n \times \mathbb{B}^n \to \mathbb{B} \text{ is the function }
+   (x, y) \mapsto \bigoplus xy\]
+\end{example}
+\pause
+Example protocol $\Pi$:
+\begin{leftbubbles}
+{\footnotesize $\texttt{P1}=\text{parity}(x)$.}
+\end{leftbubbles}
+\pause
+\begin{rightbubbles}
+{\footnotesize $\texttt{P2}=\text{parity}(y) \bigoplus \texttt{P1}$}
+\end{rightbubbles}
+\pause
+Now both Alice and Bob know $f(x, y) = \texttt{P2}$.
+$C(f) \leq 2$ because $C(\Pi) = 2$ and $\Pi$ implements $f$.
+But $C(f) \geq 2$ because $f$ depends on $x$ and $y$.
+Hence \(C(f) = 2\).
