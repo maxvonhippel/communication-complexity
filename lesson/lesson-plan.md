@@ -8,5 +8,3 @@
 70 - 85m  - Max gives multi-party discrepancy without proof
 85 - 90m  - Jake does non-deterministic version
 90 - 95m  - Max does randomized
-95 - 100m - Conclude w/ natural proofs
-
