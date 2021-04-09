@@ -1,0 +1,17 @@
+\begin{itemize}
+\item The functions $p_i$ can be \emph{anything} so long as they are well-defined.  E.g., could solve the Halting Problem.
+\item After the final message, \emph{both parties} must know $f(x, y)$.
+\end{itemize}
+\pause
+\begin{definition}[Communication Complexity]
+Suppose $\Pi$ is a protocol for $f$ in which at most $t$
+bits are communicated between Alice and Bob.
+Then the \emph{communication complexity} of $\Pi$,
+	denoted $C(\Pi)$, is $t$.
+\end{definition}
+\pause
+\begin{definition}[$C(f)$]
+The communication complexity of $f$, denoted $C(f)$,
+	is the minimum communication complexity
+	achieved by any protocol for $f$.
+\end{definition}
