@@ -1,0 +1,16 @@
+Before we talked about \emph{rectangles}.
+Now: \emph{cylinders}.
+\begin{definition}[Cylinder]
+A \textit{cylinder in dimension $i$} is a subset $S$ of the inputs $(\mathbb{B}^n)^k$ such that if $(x_1, ..., x_{i - 1}, x_i, x_{i + 1}, ..., x_k) \in S$,
+then for all $x_i' \in \mathbb{B}^n$, so is $(x_1, ..., x_{i - 1}, x_i', x_{i + 1}, ..., x_k)$.
+\end{definition}
+\pause
+\begin{definition}[Cylinder Intersection]
+A \emph{cylinder intersection} is a set
+\(C = \bigcap_{i = 1}^k T_i\)
+where each $T_i$ is a cylinder in dimension $i$.
+\end{definition}
+\pause
+\begin{lemma}[Generalize $\chi(f)$]
+If every partition of $M(f)$ into m.c. cylinder intersections requires at least $R$ of them, then $C(f) \geq \ceil{\text{log}_2(R)}$.
+\end{lemma}

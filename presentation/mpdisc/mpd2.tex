@@ -1,0 +1,14 @@
+First some extremely tedious definitions.
+\pause
+\begin{definition}[$(k, n)$-Cube]
+A $(k, n)$-cube is a set $D$ of the form
+\(D = \{ a_1, a_1' \} \times ... \times \{ a_k, a_k' \}\)
+where each $a_i, a_i' \in \mathbb{B}^n$.
+A point $\vec{d} \in D$ is a vector $(x_1, x_2, ..., x_k)$ s.t. each $x_i \in \{ a_i, a_i' \}$.
+\end{definition}
+\pause
+\begin{definition}[$\mathcal{E}$]
+Let $f : (\mathbb{B}^n)^k \to \mathbb{B}$ be a function.
+\[\mathcal{E}(f) = \underset{\substack{D \text{ is a}\\(k, n)\text{-cube}}}{{\LARGE \text{E}}} \Big[\prod_{\vec{d} \in D} f(\vec{d}) \Big]\]
+I.e., $\mathcal{E}(f) = E[$\emph{given an arbitrary cube $D$, what is the product of the image of $f$ over all the points $\vec{d} \in D$?}$]$
+\end{definition}

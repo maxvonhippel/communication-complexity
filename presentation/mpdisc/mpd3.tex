@@ -1,0 +1,12 @@
+Although somewhat scary-looking, this definition pays dividends immediately.
+\begin{lemma}[$k$-Party Discrepency Bound]
+If $f : (\mathbb{B}^n)^k \to \mathbb{B}$ is a function,
+then $\text{Disc}(f) \leq (\mathcal{E}(f))^{1/2^k}$.
+\end{lemma}
+\pause
+Proof sketch:
+\begin{proof}
+{\tiny Given any cylinder intersection and $(n, k)$-cube, what is the expectation / the image of the cube?  What if we only consider points in the cylinder intersection? Derive a lower bound on $\mathcal{E}(f)$ like}
+\[{\scriptstyle \mathcal{E}(f) \geq E_{x_1,...,x_k}[f(x_1,....,x_k)(1 \text{ if } (x_1,...,x_k) \in C \text{ else } 0)]^{2k}}\]
+{\tiny given a cylinder intersection $C$. Argue from the def. of the $k$-party discrepency that this gives a natural lower-bound $\mathcal{E}(f) \geq \text{Disc}(f)^{2k}$. But this implies \(\text{Disc}(f) \leq (\mathcal{E}(f))^{1/2^k}\), and we're done.}
+\end{proof}

@@ -1,0 +1,24 @@
+\only<1>{It turns out randomized protocols can be much faster~\cite{coins}, e.g.,
+\[C(=) \geq n\]
+but
+\[\begin{aligned}R(=) & 
+    \in \mathcal{O}(\text{log} \, n) \text{ with a private coin, or } \\
+    & \in \mathcal{O}(1) \text{ with a public coin }\end{aligned}\]}
+\only<2>{
+The protocol with a private coin turns out to be \textsc{ModCoin}, where
+\begin{enumerate}
+    \item Alice chooses $\textsc{Coin} \in \mathbb{Z}_{2n}$ randomly;
+    \item Alice sends $\langle x \text{ mod } \textsc{Coin}, \textsc{Coin} \rangle$ to Bob;
+    \item Bob sends $1$ iff $x \text{ mod } \textsc{Coin} = y \text{ mod } \textsc{Coin}$ else $0$, back to Alice.
+\end{enumerate}
+\begin{itemize}
+    \item If $x = y$ the protocol is correct with probability 1.
+    \item If $x \neq y$ the protocol is correct with probability $P[x \text{ mod } \textsc{Coin} \neq y \text{ mod } \textsc{Coin}]$ which turns out to exceed $1/2$.
+\end{itemize}}
+\only<3>{
+The protocol with a public coin turns out to be \textsc{Checksum}, which
+\begin{itemize}
+    \item if $x = y$ is correct with probability 1, and
+    \item if $x \neq y$ is correct with probability $1/2$.
+\end{itemize}
+So if you just do this a second time to confirm $x \neq y$ you get $1/4$ error rate and you are done.}
