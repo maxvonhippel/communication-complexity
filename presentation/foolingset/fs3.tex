@@ -2,16 +2,16 @@
 $\textsc{Disj} : \mathbb{B}^n \times \mathbb{B}^n \to \mathbb{B}$ is the function
 that maps $(A, B)$ to 1 if $A \cap B = \emptyset$ else 0.
 \end{example}
+
 How many fooling sets does \textsc{Disj} have?
 \pause
-Notice $A, B$ are disjoint iff $A \oplus B$ is \textbf{1}.
+Notice $A \cap B = \emptyset$ if $B = \overline{A}$.
 \pause
 There are $2^n$ possible values $A$.
 \pause
-Hence $2^n$ values $(A, B)$ s.t. $A \oplus B = \textbf{1}$.
-None of these distinct $(A, B), (A', B')$ satisfy
- $A \oplus B = A \oplus B'$ or
-$A \oplus B = A' \oplus B$
+None of these distinct $(A, \overline{A}), (A', \overline{A'})$ satisfy
+ $A \cap \overline{A} = A \cap \overline{A'}$ or
+$A \cap \overline{A} = A' \cap \overline{A}$
 else they wouldn't be distinct.
 \pause
 So we get a $2^n$-size fooling set.
