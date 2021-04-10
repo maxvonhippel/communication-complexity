@@ -1,0 +1,18 @@
+\underline{Idea:} an efficient protocol will efficiently \textbf{group together inputs that go to the same output.}
+
+\begin{definition}[Fooling Set]
+If $f : \mathbb{B}^n \times \mathbb{B}^n \to \mathbb{B}$ is a function,
+	a \emph{fooling set} for $f$ is a set
+	\(S \subseteq \mathbb{B}^n \times \mathbb{B}^n\)
+	such that for some choice $b \in \mathbb{B}$
+\(f(S) = \{ b \}\)
+but, for all distinct $(x, y), (x', y') \in S$,
+\((\neg b) \in f(\{ x, x' \} \times \{ y, y' \})\).
+\end{definition}
+Basically, a fooling set is a group of inputs that go to the same output,
+but which is \emph{brittle} to argument-swapping.
+In some sense these \emph{brittle} sets lower-bound the difficulty in grouping like inputs.
+\pause
+\begin{lemma}[Fooling Set Method]
+If $f$ has a size-$M$ fooling set, then $C(f) \geq \text{log}_2(M)$.
+\end{lemma}

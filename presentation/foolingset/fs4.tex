@@ -1,0 +1,17 @@
+\textbf{NTS:} If $f$ has a size-$M$ fooling set then $C(f) \geq \text{log}_2(M)$.
+\begin{proof}
+For a contradiction suppose a protocol $\Pi$ exists for $f$ s.t. $C(\Pi) < \text{log}_2(M)$.
+\pause
+Then $\Pi$ yields at most $2^{C(\Pi)} < 2^{\text{log}_2(M)} = M$
+distinct communication patterns.
+\pause
+But there are $M * (M - 1)$ disjoint choices of $(x, y), (x', y') \in S$.
+\pause
+Since $M * (M - 1) > M$ there must be some $(x, y), (x', y')$ on which $\Pi$ yields the same communication pattern.
+
+\medskip
+
+\pause
+Then $(x, y')$ must yield the same communication pattern as $(x, y)$
+as Bob cannot possibly tell the difference.  The argument is symmetric for $(x', y)$ and Alice.  One of the two must yield a contradiction and we are done.
+\end{proof}
