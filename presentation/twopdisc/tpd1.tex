@@ -1,0 +1,17 @@
+When we partition $M(f)$ into some number of rectangles,
+	the sizes of the rectangles must add up to the size of $M(f)$.
+\pause
+\medskip
+
+Hence, if $\chi(f) \leq K$ for some integer $K$,
+	then $M(f)$ must have a m.c. rectangle containing at least $2^n * 2^n / K$ entries.
+\pause
+\begin{proof}
+Suppose $\chi(f) \leq K$ for some integer $K$.
+\pause
+If $\chi(f) = K$ then $\exists$ a partioning of $M(f)$ into $K$ m.c. rects, in which case at least 1 must have size $\geq \abs{M(f)} / K$, i.e., $2^n * 2^n / K$.  
+\pause
+On the other hand if $\chi(f) < K$ then $\chi(f) = K'$ for some $K' < K$ and then $M(f)$ can be partitioned into $K'$ monochromatic rectangles, at least 1 of which has size $\geq \abs{M(f)} / K'$, which is strictly larger than $\abs{M(f)} / K$.
+\pause
+Either way the conjecture holds.
+\end{proof}

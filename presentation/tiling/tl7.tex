@@ -1,0 +1,78 @@
+{\small \textbf{NTS:} $C(f) \leq 16 \big( \text{log}_2 \chi(f) \big)^2$.~\cite{aho1983notions}}
+\begin{proof}
+\only<1>{
+\begin{itemize}
+	\item Let $M_1, ..., M_{\chi(f)}$ be a monochromatic
+	partitioning of $M(f)$ known ahead of time to both
+	Alice (on the ``left'') 
+	and Bob (on the ``right'').
+	Each rectangle $M_i$ can alternatively be written $X_i \times Y_i$.
+	\item Let $G_L, G_R$ be graphs whose nodes are $\{ 1, ..., \chi(f) \}$.
+	There is an edge $i \to j$ in $G_L$ ($G_R$ resp.)
+		if $M_i$ and $M_j$ have a row (column resp.) in common.
+	\item Let $\text{deg}_L(u)$ (resp. $\text{deg}_R(u)$)
+		denote the degree of the node $u$ in the graph $G_L$
+		(resp. $G_R$.)
+	\item Let $x$ be Alice's input and $y$ Bob's input.
+\end{itemize}
+}
+\only<2>{
+\begin{itemize}
+	\item We'll describe the protocol in ``rounds''.
+	During the rounds, Alice keeps track of $Y$ (a set containing $y$)
+	and Bob keeps track of $X$ (a set containing $x$),
+	both of which are initially $\mathbb{B}^n$.
+	\item Both sides know the graphs $G_L, G_R$ and the rectangles $M_i$
+	ahead of time.
+\end{itemize}
+}
+\only<3>{
+Each stage proceeds as follows.
+\begin{enumerate}
+	\item Alice looks for a rectangle $M_i = X_i \times Y_i$ s.t. $x \in X_i$ and $\text{deg}_L(i) \leq 3\chi(f)/4$.
+	\begin{enumerate}
+		\item If she finds some such rectangle then she sends $i$ to Bob.
+		\begin{enumerate}
+			\item Bob replies to indicate if $y \in M_i$.  
+			\item If so then the protocol ends because $f(x, y)$ is the color of $M_i$.
+			\item Otherwise $X := X \cap X_i$, and each rectangle $M_{\alpha} = X_{\alpha} \cap Y_{\alpha}$ is replaced with $(X_i \cap X_{\alpha}) \times Y_{\alpha}$.
+		\end{enumerate}
+		\item Otherwise she replies that she found no such rectangle.
+		In this case Bob does what Alice just attempted, symmetrically, with a small caveat ...
+	\end{enumerate}
+\end{enumerate}
+}
+\only<4>{
+\begin{itemize}
+\item If neither Alice nor Bob could find any $M_i$ with low-enough degree,
+	then they both know that every node $i$ in $G := G_L \cap G_R$
+	for which $(x, y) \in M_i$
+	has degree $\geq (3\chi(f)/4)^2$ $= 9\chi(f)/16$ $> \chi(f)/2$.
+\item Let $i, j$ both have degree $\geq \chi(f)/2$ in $G$.
+	Then some node $z$ is adjascent to $i$ and $j$ in $G$, 
+	by the Pigeonhole Principle.
+	Hence $M_i \cap M_z = \emptyset$ and $M_j \cap M_z = \emptyset$.
+	But the rectangles are monochromatic, hence, $M_i$ and $M_j$ are the same color.  So Alice needs to find an $M_i$ containing $x$ and some $y \in Y$ whose degree in $G$ is at least $\chi(f)/2$; and Bob's procedure is symmetric.
+\end{itemize}
+}
+\only<5>{
+\begin{itemize}
+	\item In the worst case for each stage, the first participant sends ``nothing found'' (1 bit), the second participant sends some $i$ ($\leq \text{log}_2(\chi(f))$ bits), and the first participant replies with some $j$ ($\leq \text{log}_2(\chi(f))$ bits).  So in the worst case each round requires $\leq 2 + 2\text{log}_2(\chi(f))$ bits.
+	\item The protocol ends after at most $n$ rounds where $(3\chi(f)/4)^n \approx 1$, i.e., after $\text{log}_{(4/3)}(\chi(f))$ rounds.
+	\item So total communication complexity is $\leq \text{log}_{(4/3)}(\chi(f)) * (1 + 2\text{log}_2(\chi(f)))$.
+\end{itemize}
+}
+\only<6>{
+	For $\chi(f) \geq 2$:
+	\[\begin{aligned}
+	C(f) & \leq \text{log}_{(4/3)}(\chi(f)) * (1 + 2\text{log}_2(\chi(f))) \\
+		 & = \frac{\text{log}_2(\chi(f))}{\text{log}_2(4/3)} * (1 + 2\text{log}_2(\chi(f))) \\
+		 & < 2.5 * \text{log}_2(\chi(f)) * (1 + 2\text{log}_2(\chi(f))) \\
+		 & \leq 2.5 * \text{log}_2(\chi(f)) * 3\text{log}_2(\chi(f))) \\
+		 & = 7.5 \text{log}_2^2(\chi(f)) \\
+		 & \leq 16 \text{log}_2^2(\chi(f))
+	\end{aligned}\]
+	{\tiny There might be a small arithmetic error somewhere, since the jump from $7.5$ to $16$ seems rather large. -Max.}
+}
+\alt<6>{\qedhere}{\phantom\qedhere}
+\end{proof}

@@ -1,0 +1,12 @@
+Suppose that $M(f)$ contains a monochromatic rectangle $A \times B$ having at least $2^n * 2^n / K$ entries.
+\pause
+Since $A \times B$ is monochromatic, this implies that:
+\[\sum_{a \in A, b \in B} (-1)^{M_{a,b}} = \begin{cases}
+-1 * \abs{A \times B} & \text{ if it's colored } 1 \\
++1 * \abs{A \times B} & \text{ if it's colored } 0\end{cases}\]
+\pause
+So if we wrap an absolute value above our sum, we get:
+\[\abs{\sum_{a \in A, b \in B} (-1)^{M_{a,b}}} = \text{ the size of the rectangle } A \times B\]
+\pause
+But we already assumed that $A \times B$ has at least $2^n * 2^n / K$ entries, hence:
+\[\abs{\sum_{a \in A, b \in B} (-1)^{M_{a,b}}} = \geq 2^n * 2^n / K\]

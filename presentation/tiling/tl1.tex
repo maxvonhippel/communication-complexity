@@ -1,0 +1,33 @@
+With the \emph{fooling set} method, we lower-bounded $C(f)$.
+Now we'll introduce a new method that both lower- and upper-bounds $C(f)$.
+\pause
+\begin{definition}[$M(f)$]
+The \emph{matrix of }$f$,
+	denoted $M(f)$,
+		is the $2^n \times 2^n$ matrix whose $(x, y)$th entry
+		is the value $f(x, y)$.
+\end{definition}
+\pause
+\begin{example}[$M(\lor)$]
+\adjustbox{max width=.25\textwidth}{
+	\begin{tabular}{llllll}
+	   & {\cellcolor{blue!20}{00}} & 
+	     {\cellcolor{blue!20}{01}} & 
+	     {\cellcolor{blue!20}{10}} & 
+	     {\cellcolor{blue!20}{11}} \\
+	{\cellcolor{green!20}{00}} & 00 & 01 & 10 & 11 \\
+	{\cellcolor{green!20}{01}} & 01 & 01 & 11 & 11 \\
+	{\cellcolor{green!20}{10}} & 10 & 11 & 10 & 11 \\
+	{\cellcolor{green!20}{11}} & 11 & 11 & 11 & 11
+	\end{tabular}
+}
+\adjustbox{max width=.73\textwidth}{
+\begin{minipage}{\linewidth}
+\begin{itemize}
+	\item The green cells are Alice's possible inputs $x$.
+	\item The blue cells are Bob's possible inputs $y$.
+	\item The uncolored cells are the matrix $M(f)$.
+\end{itemize}
+\end{minipage}
+}
+\end{example}

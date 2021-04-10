@@ -1,0 +1,84 @@
+\begin{example}[$\Pi=\textsc{LeastSignificantBit},f=<$]
+\begin{itemize}
+\item $f : \mathbb{B}^3 \times \mathbb{B}^3 \to \mathbb{B}$ is the function that maps $(x, y)$ to 1 if $x < y$ else 0.  
+\item $\Pi = \textsc{LeastSignificantBit}$ is the na{\"i}ve protocol where Alice and Bob read off their bits from right to left.
+\end{itemize}
+\adjustbox{max width=.8\textwidth}{
+\centering
+\begin{forest}
+[{\begin{tabular}{|l|lllll|}
+\hline
+    & \texttt{000}
+    & \texttt{001}
+    & \texttt{010}
+    & \texttt{011} 
+    & \texttt{100}\\\hline
+\texttt{000} & \cellcolor{red!25}0 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 \\
+\texttt{001} & \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 \\
+\texttt{010} & \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 \\
+\texttt{011} & \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{green!25}1 \\
+\texttt{100} & \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0\\\hline
+\end{tabular}},
+	[{\begin{tabular}{|l|lllll|}
+\hline
+    & \texttt{000}
+    & \texttt{001}
+    & \texttt{010} 
+    & \texttt{011}
+    & \texttt{100}\\\hline
+\texttt{000}  & \cellcolor{red!25}0 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 \\
+\texttt{010}  & \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 \\
+\texttt{100}  & \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0\\\hline
+\end{tabular}}, edge label={node[midway,left]{Alice: ``$x=\_\_\texttt{0}$''}}]
+	[{\begin{tabular}{|l|lllll|}
+\hline
+    & \texttt{000} 
+    & \texttt{001}
+    & \texttt{010}
+    & \texttt{011}
+    & \texttt{100}\\\hline
+\texttt{001}  & \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 & 
+                     \cellcolor{green!25}1 \\
+\texttt{011}  & \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{red!25}0 & 
+                     \cellcolor{green!25}1 \\\hline
+\end{tabular}}, edge label={node[midway,right]{Alice: ``$x=\_\_\texttt{1}$''}}]]
+\end{forest}}
+\end{example}

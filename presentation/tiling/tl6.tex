@@ -1,0 +1,15 @@
+\textbf{NTS:} $\text{log}_2 \chi(f) \leq C(f)$.
+\begin{proof}
+Assume $C(f)$. 
+\pause
+Then $\exists$ a protocol $\Pi$ in which $\leq C(f)$ bits are communicated
+between the 2 participants. 
+\pause 
+For simplicity suppose each bit is communicated individually. 
+\pause 
+Then $\Pi$ induces a tree whose max depth is $C(f)$, whose leaves form a monochromatic partition of $M(f)$.
+\pause  
+Every m.c. partition / $M(f)$ requires $\geq \chi(f)$ rectangles, so the tree induced by $\Pi$ has $\geq \chi(f)$ leaves.
+\pause  
+But it's a binary tree so its depth is at least $\text{log}_2 \chi(f)$.
+\end{proof}
