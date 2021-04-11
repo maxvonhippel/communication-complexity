@@ -5,9 +5,9 @@ For a contradiction suppose a protocol $\Pi$ exists for $f$ s.t. $C(\Pi) < \text
 Then $\Pi$ yields at most $2^{C(\Pi)} < 2^{\text{log}_2(M)} = M$
 distinct communication patterns.
 \pause
-But there are $M * (M - 1)$ disjoint choices of $(x, y), (x', y') \in S$.
+However, there are $M$ input pairs $(x, y)$ that each have distinct communication patterns by definition.
 \pause
-Since $M * (M - 1) > M$ there must be some $(x, y), (x', y')$ on which $\Pi$ yields the same communication pattern.
+Since $2^{C(\Pi)} < M$ there must be some $(x, y), (x', y')$ on which $\Pi$ yields the same communication pattern.
 
 \medskip
 
