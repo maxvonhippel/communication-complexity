@@ -57,7 +57,7 @@ Each stage proceeds as follows.
 }
 \only<5>{
 \begin{itemize}
-	\item In the worst case for each stage, the first participant sends ``nothing found'' (1 bit), the second participant sends some $i$ ($\leq \text{log}_2(\chi(f))$ bits), and the first participant replies with some $j$ ($\leq \text{log}_2(\chi(f))$ bits).  So in the worst case each round requires $\leq 2 + 2\text{log}_2(\chi(f))$ bits.
+	\item In the worst case for each stage, the first participant sends ``nothing found'' (1 bit), the second participant sends some $i$ ($\leq \text{log}_2(\chi(f))$ bits), and the first participant replies with some $j$ ($\leq \text{log}_2(\chi(f))$ bits).  So in the worst case each round requires $\leq 1 + 2\text{log}_2(\chi(f))$ bits.
 	\item The protocol ends after at most $n$ rounds where $(3\chi(f)/4)^n \approx 1$, i.e., after $\text{log}_{(4/3)}(\chi(f))$ rounds.
 	\item So total communication complexity is $\leq \text{log}_{(4/3)}(\chi(f)) * (1 + 2\text{log}_2(\chi(f)))$.
 \end{itemize}

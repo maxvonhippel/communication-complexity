@@ -1,8 +1,8 @@
-\begin{example}[$Majority Parity$]
-\(MajPar : \mathbb{B}^n \times \mathbb{B}^n \times \mathbb{B}^n \to \mathbb{B}\)
+\begin{example}[Majority Parity]
+\(\textsc{MajPar} : \mathbb{B}^n \times \mathbb{B}^n \times \mathbb{B}^n \to \mathbb{B}\)
 is precisely
 \(\langle x_{1}, x_{2}, x_{3} \rangle \mapsto 1\)
-if $\bigoplus_{i = 1}^{n} maj(x_{1i}, x_{2i}, x_{3i})$ else 0.
+if $\bigoplus_{i = 1}^{n} \text{majority}(x_{1i}, x_{2i}, x_{3i})$ else 0.
 \end{example}
 \pause
 For example: $f(1101, 1001, 1011) = \bigoplus 1001 = 0$\\
@@ -11,14 +11,14 @@ Example protocol $\Pi$:\\
 
 \begin{tabular}{|lll|}
   \hline
-  Player 1                                        & Player 2              & Player 3 \\ [0.5ex] 
+  Player 1 & Player 2 & Player 3 \\ [0.5ex] 
   \hline
   $x_{2}=1001$                                    & $x_{1}=1101$          & $x_{1}=1101$         \\
   $x_{3}=1011$                                    & $x_{3}=1011$          & $x_{2}=1001$         \\
                                                   &                       &                      \\
-  $parity(1 0 \_ 1)$                              & $parity(1 \_ \_ 1)$   & $parity(1 \_ 0 1)$   \\
-  $p_{1} = 0$                                     & $p_{2} = 0$           & $p_{3} = 0$          \\
-  \hline
-  $parity(p_{1}p_{2}p_{3}) = parity(000) = 0$     &                       &                      \\
-  \hline
+  $\text{parity}(1 0 \_ 1)$                       & $\text{parity}(1 \_ \_ 1)$   
+                                                  & $\text{parity}(1 \_ 0 1)$ \\
+  $p_{1} = 0$                                     & $p_{2} = 0$          
+                                                  & $p_{3} = 0$          \\\hline
+  $\text{parity}(p_{1}p_{2}p_{3}) = \text{parity}(000) = 0$  &  & \\\hline
 \end{tabular}
