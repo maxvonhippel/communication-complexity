@@ -42,7 +42,7 @@ Each stage proceeds as follows.
 	\end{enumerate}
 \end{enumerate}
 }
-\only<4>{
+\only<4>{s
 \begin{itemize}
 \item If neither Alice nor Bob could find any $M_i$ with low-enough degree,
 	then they both know that every node $i$ in $G := G_L \cap G_R$
@@ -51,7 +51,7 @@ Each stage proceeds as follows.
 \item Let $i, j$ both have degree $\geq \chi(f)/2$ in $G$.
 	Then some node $z$ is adjascent to $i$ and $j$ in $G$, 
 	by the Pigeonhole Principle.
-	Hence $M_i \cap M_z = \emptyset$ and $M_j \cap M_z = \emptyset$.
+	Hence $M_i \cap M_z \neq \emptyset$ and $M_j \cap M_z \neq \emptyset$.
 	But the rectangles are monochromatic, hence, $M_i$ and $M_j$ are the same color.  So Alice needs to find an $M_i$ containing $x$ and some $y \in Y$ whose degree in $G$ is at least $\chi(f)/2$; and Bob's procedure is symmetric.
 \end{itemize}
 }

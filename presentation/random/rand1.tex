@@ -1,7 +1,14 @@
+\begin{center}\textbf{New Rules!}\end{center}
+
+\begin{figure}
+  \includegraphics[width=0.3\linewidth]{coin.png}
+  \caption{A coin.}
+\end{figure}
+
 \begin{itemize}
-    \item All players share a random string $r$.
-    \item $R(f) := E[\abs{C(f)}]$ is the \emph{expected} \# bits communicated.
-    \item A randomized communication protocol is allowed to output the wrong answer at most $1/3$ of the time.
-    \item The ``public coin'' scenario is where you assume $r$ is known ahead-of-time and does not need to be communicated.
-    \item The ``private coin'' scenario is where someone computes $r$ and shares it with the other players, so it contributes to the size of the protocol.
+	\item You're allowed to be wrong sometimes.
+	\item You have a lava lamp or a coin or something.
+	\item Instead of $C(f)$ the complexity of $f$,
+	we discuss $R(f) = \mathbb{E}[C(f)]$ the \emph{expected}
+	complexity of $f$.
 \end{itemize}

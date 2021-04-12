@@ -1,0 +1,7 @@
+\begin{example}[=]
+Consider the equality function $f(x, y) = 1$ if $x = y$ else 0.
+\begin{itemize}
+	\item \textbf{Public Coin:} Alice sends the dot-product $\langle x, \text{coin} \rangle$ to Bob.  Bob replies 1 if $\langle x, \textsf{coin} \rangle = \langle y, \textsf{coin} \rangle$ else 0.  The chance of an erroneous ``accept'' is $1/2$, so the protocol can be repeated three times (6 bits of communication) to get the desired result.
+	\item \textbf{Private Coin: } Alice and Bob agree on a small set of possible random strings ahead of time.  Alice sends her (privately random) choice from the set, using $\mathcal{O}(\text{log}\, n)$ bits.  Then the communication proceeds as if it were a public coin with that choice.
+\end{itemize}
+\end{example}
